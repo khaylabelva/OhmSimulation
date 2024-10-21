@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohm Simulation Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logo.png" alt="Logo" class="logo-image">
+                <span>Ohm Simulation</span>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li class="active"><a href="simulation.html">Simulation</a></li>
+                    <li><a href="videos.html">Videos</a></li>
+                    <li><a href="practice_question.html">Practice Question</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="content">
+            <section class="simulation-section">
+                <h1>Ohm’s Law Simulation</h1>
+                <p>Sesuaikan angka voltage dan resistance untuk mendapatkan angka yang diinginkan</p>
+
+                <div class="formula-slider-container">
+                    <div class="formula">
+                        <div id="v" class="variable">V</div>
+                        <div class="variable"> = </div>
+                        <div id="i" class="variable">I</div>
+                        <div class="variable"> . </div>
+                        <div id="r" class="variable">R</div>
+                    </div>
+                    <div class="voltage-slider-container">
+                        <div class="voltage-text-container">
+                            <label for="voltage">Voltage</label>
+                            <span id="voltage-value">4.5V</span>
+                        </div>
+                        <input type="range" id="voltage" min="0.1" max="9" step="0.1" value="4.5">
+                    </div>
+                    <div class="resistance-slider-container">
+                        <div class="resistance-text-container">
+                            <label for="resistance">Resistance</label>
+                            <span id="resistance-value">500Ω</span>
+                        </div>
+                        <input type="range" id="resistance" min="10" max="1000" step="5" value="500">
+                    </div>
+                </div>
+                <div class="circuit-box">
+                    <div id="batteries" class="batteries"></div>
+                    <div class="left-arrow arrow">
+                        <img src="arrow.png" alt="arrow" class="arrow-img">
+                    </div>
+                    <div class="right-arrow arrow">
+                        <img src="arrow.png" alt="arrow" class="arrow-img">
+                    </div>
+                    <div class="resistor">
+                        <div class="resistor-box">Resistor</div>
+                    </div>
+                    <div id="current" class="current">Current = 9.00 mA</div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script> 
+</body>
+</html>

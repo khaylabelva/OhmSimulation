@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohm Simulation Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logo.png" alt="Logo" class="logo-image">
+                <span>Ohm Simulation</span>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="simulation.html">Simulation</a></li>
+                    <li><a href="videos.html">Videos</a></li>
+                    <li class="active"><a href="practice_question.html">Practice Question</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="content">
+            <div class="question-container">
+                <h1>Ohm Practice Questions</h1>
+                <p>Merupakan fitur berisi video pembelajaran lengkap dan interaktif. Terdapat lebih dari 1 video yang bisa ditonton</p>
+                <div class="question-progress">
+                    <span>1 / 10</span> Question
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <div class="question">
+                    <p>Seorang teknisi listrik sedang melakukan pengujian pada sebuah rangkaian sederhana yang terdiri dari sebuah resistor tunggal dan sebuah sumber tegangan. Sumber tegangan memberikan arus sebesar 2 Ampere melalui resistor dengan nilai hambatan 10 Ohm. Setelah beberapa waktu, teknisi tersebut mengubah nilai hambatan menjadi 20 Ohm, namun dengan menggunakan sumber tegangan yang sama. Berdasarkan hukum Ohm, bagaimana perubahan yang akan terjadi pada arus listrik yang mengalir setelah nilai hambatan diubah?</p>
+                </div>
+                <div class="answers">
+                    <label>
+                        <input type="radio" name="answer" value="A">
+                        Arus tetap 2 Ampere.
+                    </label>
+                    <label>
+                        <input type="radio" name="answer" value="B">
+                        Arus meningkat menjadi 4 Ampere.
+                    </label>
+                    <label>
+                        <input type="radio" name="answer" value="C">
+                        Arus menurun menjadi 1 Ampere.
+                    </label>
+                    <label>
+                        <input type="radio" name="answer" value="D">
+                        Arus meningkat menjadi 8 Ampere.
+                    </label>
+                </div>
+                <div class="button-container">
+                    <button class="next-button">Next</button>
+                </div>
+            </div>
+        </main>
+    </div>
+<script>
+    const labels = document.querySelectorAll('.answers label');
+    
+    labels.forEach(label => {
+        label.addEventListener('click', function() {
+            labels.forEach(lbl => {
+                lbl.style.backgroundColor = 'white';
+                lbl.style.borderColor = '#EAEAEA';
+            });
+            this.style.backgroundColor = '#f5f5f5';
+            this.style.borderColor = '#4C2670';
+        });
+    });
+</script>
+</body>
+</html>
