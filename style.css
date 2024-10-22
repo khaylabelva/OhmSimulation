@@ -533,6 +533,104 @@ label {
     transform: translate(-50%, -50%);
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .formula-slider-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .formula {
+        font-size: 2rem;
+    }
+
+    .voltage-slider-container,
+    .resistance-slider-container {
+        align-items: center;
+        width: 320px;
+    }
+
+    .circuit-box {
+        width: 600px;
+        height: 200px;
+        margin: 20px auto;
+    }
+
+    .current {
+        width: auto;
+        max-width: 90%;
+    }
+
+    .arrow {
+        bottom: -25px;
+    }
+
+    .left-arrow {
+        left: -40px;
+    }
+
+    .right-arrow {
+        right: -30px;
+    }
+
+    .resistor-box {
+        padding: 8px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    #voltage-value, #resistance-value {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .formula-slider-container {
+        gap: 15px;
+    }
+
+    .formula {
+        font-size: 1.6rem;
+    }
+
+    .voltage-slider-container,
+    .resistance-slider-container {
+        width: 320px;
+    }
+
+    .circuit-box {
+        width: 600px;
+        height: 200px;
+        margin: 10px auto;
+    }
+
+    .current {
+        width: 90%;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    #voltage-value, #resistance-value {
+        font-size: 14px;
+    }
+
+    .arrow {
+        bottom: -15px;
+    }
+
+    .left-arrow {
+        left: -20px;
+    }
+
+    .right-arrow {
+        right: -20px;
+    }
+}
+
 /* Page Videos */
 .videos-section h1 {
     font-size: 28px;

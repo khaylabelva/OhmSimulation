@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <div class="container">
-        <aside class="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="logo">
                 <img src="logo.png" alt="Logo" class="logo-image">
                 <span>Ohm Simulation</span>
             </div>
-            <nav class="nav-menu">
+            <nav class="nav-menu" id="navMenu">
                 <ul>
                     <li><a href="dashboard.html">Dashboard</a></li>
                     <li class="active"><a href="simulation.html">Simulation</a></li>
@@ -24,7 +25,7 @@
                     <li><a href="practice_question.html">Practice Question</a></li>
                 </ul>
             </nav>
-        </aside>
+        </div>
         
         <main class="content">
             <section class="simulation-section">

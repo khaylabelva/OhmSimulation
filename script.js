@@ -11,6 +11,14 @@ const batteriesContainer = document.getElementById('batteries');
 const leftArrowElement = document.querySelector('.left-arrow');
 const rightArrowElement = document.querySelector('.right-arrow');
 
+function toggleMenu() {
+    const navMenu = document.getElementById('navMenu');
+    navMenu.classList.toggle('active');
+
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
 function updateValues() {
     const voltage = parseFloat(voltageSlider.value);
     const resistance = parseFloat(resistanceSlider.value);
