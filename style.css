@@ -145,6 +145,7 @@ body {
 .features {
     display: flex;
     gap: 20px;
+    padding-bottom: 40px;
 }
 
 .features a {
@@ -202,10 +203,6 @@ body {
 @media (max-width: 768px) {
     .sidebar {
         display: none;
-    }
-
-    .menu-toggle {
-        display: block;
     }
 
     .navbar {
@@ -540,7 +537,6 @@ label {
 .videos-section h1 {
     font-size: 28px;
     color: #4C2670;
-    margin-top: -20px;
 }
 
 .videos-section p {
@@ -552,6 +548,7 @@ label {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     margin-top: 19px;
+    padding-bottom: 40px;
 }
 
 .video-card {
@@ -564,7 +561,7 @@ label {
 
 .video-card iframe {
     width: 100%;
-    height: 125px;
+    height: 200px;
     border-radius: 10px;
 }
 
@@ -583,6 +580,17 @@ label {
     font-size: 14px;
     color: orange;
     margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .video-card iframe {
+        height: 180px;
+    }
 }
 
 /* Page Practice Question */
