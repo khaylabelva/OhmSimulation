@@ -114,8 +114,19 @@ document.getElementById('next-button').addEventListener('click', () => {
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
         loadQuestion(currentQuestion);
+
+        if (currentQuestion === questions.length - 1) {
+            const nextButton = document.getElementById('next-button');
+            nextButton.textContent = 'Finish';
+            nextButton.removeEventListener('click', nextQuestionHandler);
+            nextButton.addEventListener('click', finishQuiz);
+        }
     }
 });
+
+function finishQuiz() {
+    alert("Quiz Selesai! Terima kasih telah mengikuti.");
+}
 
 document.getElementById('progress').style.width = '0%';
 

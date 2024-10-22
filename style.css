@@ -57,17 +57,20 @@ body {
     font-weight: 500;
     padding: 8px 18px;
     display: block;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
 }
 
 .nav-menu ul li a:hover {
-    background-color: #b68ddb;
+    background-color: #633291;
     border-radius: 8px;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
 }
 
 .nav-menu ul li.active a {
     background-color: #b68ddb;
     padding: 8px 18px;
     border-radius: 8px;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
 }
 
 .content {
