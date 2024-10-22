@@ -7,7 +7,7 @@ const questions = [
             "Daya disipasi berkurang menjadi sepertiga.",
             "Daya disipasi berkurang menjadi sepersembilan."
         ],
-        correctAnswer: 3 // Jawaban benar adalah "Daya disipasi berkurang menjadi sepersembilan."
+        correctAnswer: 3 // Jawaban benar nya "Daya disipasi berkurang menjadi sepersembilan."
     },
     {
         text: "Dua resistor, R1 = 4 Ohm dan R2 = 12 Ohm, disusun dalam seri dan dihubungkan ke baterai 24 Volt. Jika R1 mengalami kenaikan suhu yang membuat nilai resistansinya meningkat menjadi 6 Ohm, berapakah besar arus yang mengalir setelah perubahan resistansi?",
@@ -17,7 +17,7 @@ const questions = [
             "3 A",
             "4 A"
         ],
-        correctAnswer: 0 // Jawaban benar adalah "1.5 A"
+        correctAnswer: 0 // Jawaban benar nya "1.5 A"
     },
     {
         text: "Dalam rangkaian yang terdiri dari sebuah resistor tetap dan sebuah resistor variabel (potensiometer), tegangan pada resistor tetap diukur 5 Volt ketika nilai potensiometer 10 Ohm. Jika potensiometer dinaikkan menjadi 20 Ohm dan sumber tegangan tetap 15 Volt, berapakah besar tegangan pada resistor tetap?",
@@ -27,7 +27,7 @@ const questions = [
             "Berkurang menjadi 3.75 Volt",
             "Berkurang menjadi 2.5 Volt"
         ],
-        correctAnswer: 2 // Jawaban benar adalah "Berkurang menjadi 3.75 Volt"
+        correctAnswer: 2 // Jawaban benar nya "Berkurang menjadi 3.75 Volt"
     },
     {
         text: "Sebuah kabel penghantar panjang memiliki hambatan yang bergantung pada suhunya. Pada suhu kamar (25°C), hambatan kawat adalah 10 Ohm. Jika suhu kawat dinaikkan menjadi 100°C dengan koefisien suhu resistansi 0.004/°C, berapakah hambatan baru kawat tersebut?",
@@ -37,7 +37,7 @@ const questions = [
             "14 Ohm",
             "16 Ohm"
         ],
-        correctAnswer: 1 // Jawaban benar adalah "12 Ohm"
+        correctAnswer: 1 // Jawaban benar nya "12 Ohm"
     },
     {
         text: "Sebuah rangkaian terdiri dari tiga resistor dengan nilai R1 = 10 Ohm, R2 = 5 Ohm, dan R3 = 20 Ohm, disusun dalam konfigurasi campuran (seri dan paralel) dengan sumber tegangan 40 Volt. Jika R1 dan R2 dalam paralel dan gabungannya seri dengan R3, berapakah arus total yang mengalir melalui rangkaian?",
@@ -47,13 +47,13 @@ const questions = [
             "4 A",
             "0.5 A"
         ],
-        correctAnswer: 0 // Jawaban benar adalah "1 A"
+        correctAnswer: 0 // Jawaban benar nya "1 A"
     }
 ];
 
 let currentQuestion = 0;
 let progressIncrement = 100 / questions.length;
-let isAnswered = false; // To track if the question has been answered
+let isAnswered = false;
 
 function loadQuestion(index) {
     const questionText = document.getElementById('question-text');
@@ -72,44 +72,37 @@ function loadQuestion(index) {
 
     questionNumber.textContent = `${index + 1} / 5`;
 
-    // Reset 'isAnswered' flag for new question
     isAnswered = false;
 
-    // Event listener for answer labels
     const labels = document.querySelectorAll('.answers label'); 
     labels.forEach((label, i) => {
         label.addEventListener('click', function() {
-            if (!isAnswered) { // Only proceed if the question hasn't been answered yet
+            if (!isAnswered) {
                 isAnswered = true;
 
-                // Disable all options after selection
                 labels.forEach(lbl => {
-                    lbl.style.pointerEvents = 'none'; // Disable click events for all labels
+                    lbl.style.pointerEvents = 'none';
                 });
 
-                // Reset styles of all labels before applying new styles
                 labels.forEach(lbl => {
                     lbl.style.backgroundColor = 'white';
                     lbl.style.borderColor = '#EAEAEA';
                 });
 
-                // Check if the selected answer is correct
                 const correctAnswerIndex = questions[index].correctAnswer;
                 if (i === correctAnswerIndex) {
-                    // Correct answer selected
+
                     this.style.backgroundColor = '#e0ffe0';
                     this.style.borderColor = 'green';
                 } else {
-                    // Wrong answer selected
+
                     this.style.backgroundColor = '#ffe0e0';
                     this.style.borderColor = 'red';
 
-                    // Highlight the correct answer
                     labels[correctAnswerIndex].style.backgroundColor = '#e0ffe0';
                     labels[correctAnswerIndex].style.borderColor = 'green';
                 }
 
-                // Update progress bar only once when an option is selected
                 const progress = (currentQuestion + 1) * progressIncrement;
                 progressBar.style.width = `${progress}%`;
             }
@@ -117,7 +110,6 @@ function loadQuestion(index) {
     });
 }
 
-// Event listener for the "Next" button
 document.getElementById('next-button').addEventListener('click', () => {
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
@@ -125,8 +117,6 @@ document.getElementById('next-button').addEventListener('click', () => {
     }
 });
 
-// Initial state: progress bar at 0%
 document.getElementById('progress').style.width = '0%';
 
-// Load the first question on page load
 loadQuestion(currentQuestion);
