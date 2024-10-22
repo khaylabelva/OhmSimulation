@@ -1,48 +1,53 @@
 const questions = [
     {
-        text: "Seorang teknisi listrik sedang melakukan pengujian pada sebuah rangkaian sederhana yang terdiri dari sebuah resistor tunggal dan sebuah sumber tegangan. Sumber tegangan memberikan arus sebesar 2 Ampere melalui resistor dengan nilai hambatan 10 Ohm. Setelah beberapa waktu, teknisi tersebut mengubah nilai hambatan menjadi 20 Ohm, namun dengan menggunakan sumber tegangan yang sama. Berdasarkan hukum Ohm, bagaimana perubahan yang akan terjadi pada arus listrik yang mengalir setelah nilai hambatan diubah?",
+        text: "Dalam sebuah eksperimen, sebuah resistor dengan hambatan variabel terhubung ke sumber tegangan konstan. Ketika hambatan awal adalah 5 Ohm, arus yang mengalir melalui resistor adalah 3 Ampere. Ketika hambatan ditingkatkan menjadi 15 Ohm, bagaimana perubahan daya disipasi dalam resistor sesuai hukum Ohm?",
         answers: [
-            "Arus tetap 2 Ampere.",
-            "Arus meningkat menjadi 4 Ampere.",
-            "Arus menurun menjadi 1 Ampere.",
-            "Arus meningkat menjadi 8 Ampere."
-        ]
+            "Daya disipasi tetap sama.",
+            "Daya disipasi meningkat tiga kali lipat.",
+            "Daya disipasi berkurang menjadi sepertiga.",
+            "Daya disipasi berkurang menjadi sepersembilan."
+        ],
+        correctAnswer: 3 // Jawaban benar adalah "Daya disipasi berkurang menjadi sepersembilan."
     },
     {
-        text: "Apabila sebuah rangkaian paralel terdiri dari dua buah resistor masing-masing 5 Ohm dan 10 Ohm, berapakah besar hambatan total rangkaian?",
+        text: "Dua resistor, R1 = 4 Ohm dan R2 = 12 Ohm, disusun dalam seri dan dihubungkan ke baterai 24 Volt. Jika R1 mengalami kenaikan suhu yang membuat nilai resistansinya meningkat menjadi 6 Ohm, berapakah besar arus yang mengalir setelah perubahan resistansi?",
         answers: [
-            "3.33 Ohm",
-            "7.5 Ohm",
-            "15 Ohm",
-            "5 Ohm"
-        ]
+            "1.5 A",
+            "2 A",
+            "3 A",
+            "4 A"
+        ],
+        correctAnswer: 0 // Jawaban benar adalah "1.5 A"
     },
     {
-        text: "Jika sebuah kawat penghantar dengan panjang 2 meter dan luas penampang 0.1 mm² digunakan untuk mengalirkan arus sebesar 5 A, berapakah hambatan kawat tersebut jika resistivitas kawat 1.68 x 10^-8 Ohm m?",
+        text: "Dalam rangkaian yang terdiri dari sebuah resistor tetap dan sebuah resistor variabel (potensiometer), tegangan pada resistor tetap diukur 5 Volt ketika nilai potensiometer 10 Ohm. Jika potensiometer dinaikkan menjadi 20 Ohm dan sumber tegangan tetap 15 Volt, berapakah besar tegangan pada resistor tetap?",
         answers: [
-            "0.336 Ohm",
-            "0.168 Ohm",
-            "0.672 Ohm",
-            "0.84 Ohm"
-        ]
+            "Tetap 5 Volt",
+            "Bertambah menjadi 10 Volt",
+            "Berkurang menjadi 3.75 Volt",
+            "Berkurang menjadi 2.5 Volt"
+        ],
+        correctAnswer: 2 // Jawaban benar adalah "Berkurang menjadi 3.75 Volt"
     },
     {
-        text: "Apa yang terjadi pada arus jika tegangan dinaikkan namun hambatan tetap?",
+        text: "Sebuah kabel penghantar panjang memiliki hambatan yang bergantung pada suhunya. Pada suhu kamar (25°C), hambatan kawat adalah 10 Ohm. Jika suhu kawat dinaikkan menjadi 100°C dengan koefisien suhu resistansi 0.004/°C, berapakah hambatan baru kawat tersebut?",
         answers: [
-            "Arus naik",
-            "Arus turun",
-            "Tidak ada perubahan",
-            "Arus nol"
-        ]
+            "11 Ohm",
+            "12 Ohm",
+            "14 Ohm",
+            "16 Ohm"
+        ],
+        correctAnswer: 1 // Jawaban benar adalah "12 Ohm"
     },
     {
-        text: "Pada rangkaian seri, jika salah satu komponen rusak, apa yang terjadi?",
+        text: "Sebuah rangkaian terdiri dari tiga resistor dengan nilai R1 = 10 Ohm, R2 = 5 Ohm, dan R3 = 20 Ohm, disusun dalam konfigurasi campuran (seri dan paralel) dengan sumber tegangan 40 Volt. Jika R1 dan R2 dalam paralel dan gabungannya seri dengan R3, berapakah arus total yang mengalir melalui rangkaian?",
         answers: [
-            "Rangkaian tetap bekerja",
-            "Rangkaian berhenti bekerja",
-            "Arus tetap mengalir",
-            "Tegangan tetap"
-        ]
+            "1 A",
+            "2 A",
+            "4 A",
+            "0.5 A"
+        ],
+        correctAnswer: 0 // Jawaban benar adalah "1 A"
     }
 ];
 
@@ -72,22 +77,41 @@ function loadQuestion(index) {
 
     // Event listener for answer labels
     const labels = document.querySelectorAll('.answers label'); 
-    labels.forEach(label => {
+    labels.forEach((label, i) => {
         label.addEventListener('click', function() {
-            // Reset styles of all labels before applying new styles
-            labels.forEach(lbl => {
-                lbl.style.backgroundColor = 'white';
-                lbl.style.borderColor = '#EAEAEA';
-            });
-            this.style.backgroundColor = '#f5f5f5';
-            this.style.borderColor = '#4C2670';
+            if (!isAnswered) { // Only proceed if the question hasn't been answered yet
+                isAnswered = true;
 
-            if (!isAnswered) { // Only update progress if not yet answered
+                // Disable all options after selection
+                labels.forEach(lbl => {
+                    lbl.style.pointerEvents = 'none'; // Disable click events for all labels
+                });
+
+                // Reset styles of all labels before applying new styles
+                labels.forEach(lbl => {
+                    lbl.style.backgroundColor = 'white';
+                    lbl.style.borderColor = '#EAEAEA';
+                });
+
+                // Check if the selected answer is correct
+                const correctAnswerIndex = questions[index].correctAnswer;
+                if (i === correctAnswerIndex) {
+                    // Correct answer selected
+                    this.style.backgroundColor = '#e0ffe0';
+                    this.style.borderColor = 'green';
+                } else {
+                    // Wrong answer selected
+                    this.style.backgroundColor = '#ffe0e0';
+                    this.style.borderColor = 'red';
+
+                    // Highlight the correct answer
+                    labels[correctAnswerIndex].style.backgroundColor = '#e0ffe0';
+                    labels[correctAnswerIndex].style.borderColor = 'green';
+                }
+
                 // Update progress bar only once when an option is selected
                 const progress = (currentQuestion + 1) * progressIncrement;
                 progressBar.style.width = `${progress}%`;
-
-                isAnswered = true; // Mark the question as answered
             }
         });
     });
