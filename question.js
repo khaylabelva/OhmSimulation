@@ -60,6 +60,10 @@ function loadQuestion(index) {
     const answersContainer = document.getElementById('answers-container');
     const questionNumber = document.getElementById('question-number');
     const progressBar = document.getElementById('progress');
+    const nextButton = document.getElementById('next-button'); // Tombol next
+
+    // Sembunyikan tombol "Next" saat pertanyaan baru dimuat
+    nextButton.style.display = 'none';
 
     questionText.innerHTML = `<p>${questions[index].text}</p>`;
     
@@ -70,8 +74,7 @@ function loadQuestion(index) {
         answersContainer.appendChild(label);
     });
 
-    questionNumber.textContent = `${index + 1} / 5`;
-
+    questionNumber.textContent = `${index + 1} / ${questions.length}`;
     isAnswered = false;
 
     const labels = document.querySelectorAll('.answers label'); 
@@ -91,20 +94,20 @@ function loadQuestion(index) {
 
                 const correctAnswerIndex = questions[index].correctAnswer;
                 if (i === correctAnswerIndex) {
-
                     this.style.backgroundColor = '#e0ffe0';
                     this.style.borderColor = 'green';
                 } else {
-
                     this.style.backgroundColor = '#ffe0e0';
                     this.style.borderColor = 'red';
-
                     labels[correctAnswerIndex].style.backgroundColor = '#e0ffe0';
                     labels[correctAnswerIndex].style.borderColor = 'green';
                 }
 
                 const progress = (currentQuestion + 1) * progressIncrement;
                 progressBar.style.width = `${progress}%`;
+
+                // Tampilkan tombol "Next" setelah jawaban dipilih
+                nextButton.style.display = 'block';
             }
         });
     });
