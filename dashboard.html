@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
     <div class="container">
-        <aside class="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="logo">
                 <img src="logo.png" alt="Logo" class="logo-image">
                 <span>Ohm Simulation</span>
             </div>
-            <nav class="nav-menu">
+            <nav class="nav-menu" id="navMenu">
                 <ul>
                     <li class="active"><a href="dashboard.html">Dashboard</a></li>
                     <li><a href="simulation.html">Simulation</a></li>
@@ -24,15 +26,13 @@
                     <li><a href="practice_question.html">Practice Question</a></li>
                 </ul>
             </nav>
-        </aside>
-        
+        </div>
+
         <main class="content">
             <section class="welcome-section">
                 <div class="text-content">
                     <h1>Welcome to Ohm’s Law Simulation</h1>
-                    <p>
-                        Selamat datang di Ohm Simulation, platform interaktif untuk belajar dan memahami hukum Ohm serta konsep dasar kelistrikan lainnya. Di sini, kamu dapat:
-                    </p>
+                    <p>Selamat datang di Ohm Simulation, platform interaktif untuk belajar dan memahami hukum Ohm serta konsep dasar kelistrikan lainnya. Di sini, kamu dapat:</p>
                     <ul>
                         <li>Belajar Konsep Hukum Ohm: Pahami hubungan antara tegangan (V), arus (I), dan hambatan (R).</li>
                         <li>Simulasi Interaktif: Uji pemahamanmu dengan mencoba berbagai skenario dan melihat hasil perhitungannya langsung.</li>
@@ -41,7 +41,7 @@
                 </div>
                 <img src="image1.png" alt="Simulation Illustration">
             </section>
-            
+
             <section class="features-section">
                 <h2>Fitur Kami</h2>
                 <div class="features">
@@ -79,8 +79,18 @@
                         </div>
                     </a>
                 </div>
-            </section>            
+            </section>
         </main>
     </div>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

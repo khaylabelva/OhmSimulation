@@ -60,9 +60,8 @@ function loadQuestion(index) {
     const answersContainer = document.getElementById('answers-container');
     const questionNumber = document.getElementById('question-number');
     const progressBar = document.getElementById('progress');
-    const nextButton = document.getElementById('next-button'); // Tombol next
+    const nextButton = document.getElementById('next-button');
 
-    // Sembunyikan tombol "Next" saat pertanyaan baru dimuat
     nextButton.style.display = 'none';
 
     questionText.innerHTML = `<p>${questions[index].text}</p>`;
@@ -106,7 +105,6 @@ function loadQuestion(index) {
                 const progress = (currentQuestion + 1) * progressIncrement;
                 progressBar.style.width = `${progress}%`;
 
-                // Tampilkan tombol "Next" setelah jawaban dipilih
                 nextButton.style.display = 'block';
             }
         });
