@@ -127,6 +127,15 @@ body {
     gap: 20px;
 }
 
+.features a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.features a:hover {
+    text-decoration: none;
+}
+
 .feature-item {
     display: flex;
     align-items: center;
