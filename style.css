@@ -567,14 +567,17 @@ label {
 
     .voltage-slider-container,
     .resistance-slider-container {
+        display: flex;
         align-items: center;
+        justify-content: center;
         width: 320px;
+        margin: 0 auto;
     }
 
     .circuit-box {
         width: 600px;
         height: 200px;
-        margin: 20px auto;
+        margin: 50px auto;
     }
 
     .current {
@@ -619,6 +622,7 @@ label {
     .voltage-slider-container,
     .resistance-slider-container {
         width: 320px;
+        margin: 0 auto;
     }
 
     .circuit-box {
