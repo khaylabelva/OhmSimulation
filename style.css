@@ -249,10 +249,19 @@ body {
 
     .nav-menu ul li a {
         font-size: 18px;
+        width: 90%;
     }
 
     .nav-menu ul li.active a {
         background-color: #b68ddb;
+        padding: 8px 18px;
+        width: 90%;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, border-radius 0.3s ease;
+    }
+
+    .nav-menu ul li a:hover {
+        background-color: #633291;
         padding: 8px 18px;
         width: 90%;
         border-radius: 8px;
