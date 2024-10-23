@@ -127,8 +127,8 @@ document.getElementById('next-button').addEventListener('click', function nextQu
         if (currentQuestion === questions.length - 1) {
             const nextButton = document.getElementById('next-button');
             nextButton.textContent = 'Finish';
-            nextButton.removeEventListener('click', nextQuestionHandler); // Menghapus event listener untuk nextQuestionHandler
-            nextButton.addEventListener('click', finishQuiz); // Menambahkan event listener baru untuk finishQuiz
+            nextButton.removeEventListener('click', nextQuestionHandler);
+            nextButton.addEventListener('click', finishQuiz);
         }
     }
 });

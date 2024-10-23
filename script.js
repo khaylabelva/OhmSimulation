@@ -37,7 +37,38 @@ function updateValues() {
     rightArrowElement.style.transform = `scale(${arrowScale})`;
 
     updateBatteries(voltage);
+    updateDots(resistance);
 }
+
+const maxDots = 200;
+
+function createDots() {
+    const resistorBox = document.querySelector('.resistor-box');
+    resistorBox.innerHTML = '';
+
+    for (let i = 0; i < maxDots; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.style.top = `${Math.random() * 38}px`;
+        dot.style.left = `${Math.random() * 300}px`;
+        resistorBox.appendChild(dot);
+    }
+}
+
+function updateDots(resistance) {
+    const dots = document.querySelectorAll('.dot');
+    const visibleDots = Math.floor((resistance / 1000) * maxDots);
+
+    dots.forEach((dot, index) => {
+        if (index < visibleDots) {
+            dot.style.opacity = 1;
+        } else {
+            dot.style.opacity = 0;
+        }
+    });
+}
+
+createDots();
 
 function calculateCurrent(voltage, resistance) {
     return (voltage / resistance) * 1000;
