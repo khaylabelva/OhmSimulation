@@ -829,16 +829,21 @@ label {
     background-color: #b68ddb;
 }
 
-/* Page Finish */
 .finish-page {
     text-align: center;
     padding: 50px;
+    margin-top: 50px;
+}
+
+.finish-page img {
+    max-width: 150px;
+    margin-bottom: 20px;
 }
 
 .finish-page h1 {
     font-size: 32px;
     color: #4C2670;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .finish-page p {
