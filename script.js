@@ -46,11 +46,20 @@ function calculateCurrent(voltage, resistance) {
 function updateBatteries(voltage) {
     batteriesContainer.innerHTML = '';
     const batteryCount = Math.floor(voltage / 1.5);
+    const remainingVoltage = voltage % 1.5;
+
     for (let i = 0; i < batteryCount; i++) {
         const battery = document.createElement('div');
         battery.className = 'battery';
-        battery.textContent = '1.5V';
+        battery.textContent = `${1.5}V`;
         batteriesContainer.appendChild(battery);
+    }
+
+    if (remainingVoltage > 0) {
+        const partialBattery = document.createElement('div');
+        partialBattery.className = 'battery';
+        partialBattery.textContent = `${remainingVoltage.toFixed(1)}V`;
+        batteriesContainer.appendChild(partialBattery);
     }
 }
 
