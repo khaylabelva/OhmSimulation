@@ -119,7 +119,7 @@ function loadQuestion(index) {
     });
 }
 
-document.getElementById('next-button').addEventListener('click', () => {
+document.getElementById('next-button').addEventListener('click', function nextQuestionHandler() {
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
         loadQuestion(currentQuestion);
@@ -127,14 +127,18 @@ document.getElementById('next-button').addEventListener('click', () => {
         if (currentQuestion === questions.length - 1) {
             const nextButton = document.getElementById('next-button');
             nextButton.textContent = 'Finish';
-            nextButton.removeEventListener('click', nextQuestionHandler);
-            nextButton.addEventListener('click', finishQuiz);
+            nextButton.removeEventListener('click', nextQuestionHandler); // Menghapus event listener untuk nextQuestionHandler
+            nextButton.addEventListener('click', finishQuiz); // Menambahkan event listener baru untuk finishQuiz
         }
     }
 });
 
 function finishQuiz() {
-    alert("Quiz Selesai! Terima kasih telah mengikuti.");
+    const questionContainer = document.querySelector('.question-container');
+    questionContainer.style.display = 'none';
+
+    const finishPage = document.getElementById('finish-page');
+    finishPage.style.display = 'block';
 }
 
 document.getElementById('progress').style.width = '0%';
