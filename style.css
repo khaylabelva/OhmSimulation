@@ -338,7 +338,6 @@ body {
     }
 }
 
-
 /* Page Simulation */
 .simulation-section h1 {
     color: #4C2670;
@@ -558,11 +557,12 @@ label {
 @media (max-width: 768px) {
     .formula-slider-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
     }
 
     .formula {
         font-size: 2rem;
+        margin-bottom: 10px;
     }
 
     .voltage-slider-container,
@@ -571,68 +571,74 @@ label {
         align-items: center;
         justify-content: center;
         width: 320px;
-        margin: 0 auto;
+        margin: 0 auto 50px;
     }
 
     .circuit-box {
-        width: 600px;
-        height: 200px;
-        margin: 50px auto;
-    }
-
-    .current {
-        width: auto;
-        max-width: 90%;
+        width: 80%;
+        aspect-ratio: 4/2;
+        padding: 15px;
+        margin: 20px auto;
     }
 
     .arrow {
-        bottom: -25px;
+        width: 25px;
+        height: auto;
+        position: absolute;
     }
 
-    .left-arrow {
-        left: -40px;
+    .arrow.left {
+        left: -30px;
+        bottom: -10px;
     }
 
-    .right-arrow {
-        right: -30px;
+    .arrow.right {
+        right: 30px;
+        bottom: -10px;
     }
 
-    .resistor-box {
-        padding: 8px;
-    }
-
-    label {
-        font-size: 16px;
-    }
-
-    #voltage-value, #resistance-value {
-        font-size: 16px;
+    .circuit-box .wire {
+        margin-bottom: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .formula-slider-container {
-        gap: 15px;
+        gap: 20px;
     }
 
     .formula {
         font-size: 1.6rem;
+        margin-bottom: 30px;
     }
 
     .voltage-slider-container,
     .resistance-slider-container {
         width: 320px;
-        margin: 0 auto;
+        margin: 0 auto 20px;
     }
 
     .circuit-box {
-        width: 600px;
-        height: 200px;
+        width: 90%;
+        aspect-ratio: 2/1;
         margin: 10px auto;
     }
 
+    .arrow {
+        width: 25px;
+    }
+
+    .left-arrow {
+        left: -15px;
+        bottom: -15px;
+    }
+
+    .right-arrow {
+        right: 15px;
+    }
+
     .current {
-        width: 90%;
+        width: 70%;
     }
 
     label {
@@ -643,16 +649,9 @@ label {
         font-size: 14px;
     }
 
-    .arrow {
-        bottom: -15px;
-    }
-
-    .left-arrow {
-        left: -20px;
-    }
-
-    .right-arrow {
-        right: -20px;
+    .resistor-box {
+        padding: 5px;
+        width: 200px;
     }
 }
 
