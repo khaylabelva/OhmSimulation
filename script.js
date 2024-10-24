@@ -29,10 +29,11 @@ function updateValues() {
     currentDisplay.textContent = `Current = ${current.toFixed(2)} mA`;
 
     vElement.style.transform = `scale(${1 + voltage / 10})`;
+    const iScale = Math.min(1 + current / 100, 2);
     iElement.style.transform = `scale(${1 + current / 100})`;
     rElement.style.transform = `scale(${1 + resistance / 1000})`;
 
-    const arrowScale = 1 + current / 100;
+    const arrowScale = Math.min(1 + current / 100, 2);
     leftArrowElement.style.transform = `scale(${arrowScale}) rotate(90deg)`;
     rightArrowElement.style.transform = `scale(${arrowScale})`;
 
