@@ -189,7 +189,7 @@ body {
 
 .feature-item h3 {
     color: #4C2670;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     font-size: 18px;
     font-weight: 600;
 }
@@ -270,7 +270,7 @@ body {
 
     .features {
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
     }
 
     .feature-item {
@@ -279,17 +279,12 @@ body {
 
     .welcome-section {
         flex-direction: column;
-        text-align: center;
     }
 
     .welcome-section img {
-        margin: 0 auto;
+        margin: -50px auto 30px;
         width: 100%;
         max-width: 300px;
-    }
-
-    .welcome-section .text-content {
-        text-align: center;
     }
 
     .sidebar {
@@ -324,12 +319,11 @@ body {
 
     .content {
         margin-left: 0;
-        padding: 80px 20px 20px;
+        padding: 80px 30px 30px;
     }
 
     .welcome-section {
         flex-direction: column;
-        text-align: center;
     }
 
     .welcome-section img {
@@ -617,7 +611,7 @@ label {
     }
 
     .circuit-box {
-        width: 90%;
+        width: 80%;
         aspect-ratio: 2/1;
         margin: 10px auto;
     }
