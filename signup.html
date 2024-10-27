@@ -4,31 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Ohm Simulation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-header">
-            <img src="logo.png" alt="Ohm Simulation Logo" class="logo-image">
-            <h2>Create Your Account</h2>
-            <p>Join us to access all features</p>
+    <div class="container_login">
+        <div class="auth-left">
+            <img src="background.png" alt="Background illustration" class="background-image">
         </div>
-        <form action="#" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
+        <div class="auth-right">
+            <div class="auth-header">
+                <img src="logo.png" alt="Ohm Simulation Logo" class="logo-image">
+                <h2>Create Your Account</h2>
+                <p>Join us to access all features</p>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="auth-button">Sign Up</button>
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="sign-button">Sign Up</button>
+                <button type="button" class="google-button">Sign up with Google</button>
+            </form>
             <p class="auth-footer">Already have an account? <a href="login.html">Login here</a></p>
-        </form>
+        </div>
     </div>
 </body>
 </html>
