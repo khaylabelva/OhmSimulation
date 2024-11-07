@@ -216,9 +216,58 @@ body {
     cursor: pointer;
 }
 
-.logo-image {
-    width: 40px;
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-link {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.logout {
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.logout-link {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.logout-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.logout-link span {
+    font-size: 16px;
+    color: #dac6ec;
+    
 }
 
 .nav-menu ul {
@@ -358,10 +407,6 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
-
     .navbar {
         display: flex;
         justify-content: space-between;
