@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <a href="profile.html" class="profile-link">
+                <img src="profile-pic.png" alt="Profile Picture" class="profile-image">
+                <div class="profile-info">
+                    <span class="profile-name">Lee Haechan</span>
+                    <span class="profile-user">Profile User</span>
+                </div>
+            </a>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="simulation.html">Simulation</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="practice_question.html">Practice Question</a></li>
+            </ul>
+        </nav>
+        <div class="logout">
+            <a href="login.html" class="logout-link">
+                <img src="logout.png" alt="Logout Icon" class="logout-icon">
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="profile-container">
+            <div class="profile-picture-section">
+                <span class="profile-picture-label">Profile Picture</span>
+                <img src="profile-pic.png" alt="Profile Picture" class="profile-image-large">
+                <div class="profile-buttons">
+                    <button class="change-btn">Change Picture</button>
+                    <button class="delete-btn">Delete Picture</button>
+                </div>
+            </div>
+            <form class="profile-form">
+                <div class="form-row">
+                    <div>
+                        <label for="name">Profile Name</label>
+                        <input type="text" id="name" name="name" value="Lee Haechan">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="******">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="haechan@itb.ac.id">
+                    </div>
+                    <div>
+                        <label for="progress">Track Progress</label>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 30%;">30%</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="save-button">Save Changes</button>
+            </form>
+        </div>
+    </div>    
+</body>
+</html>

@@ -2,10 +2,10 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
     display: flex;
     height: 100vh;
     background-color: white;
@@ -1070,4 +1070,147 @@ label {
 .finish-page p {
     font-size: 18px;
     color: #4C2670;
+}
+
+/* Page Profile */
+.profile-title {
+    text-align: center;
+    color: #4C2670;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profile-picture-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-picture-label {
+    color: #4C2670;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.profile-image-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #4C2670;
+    margin-bottom: 10px;
+}
+
+.profile-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.change-btn,
+.delete-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.change-btn {
+    background-color: #4C2670;
+    color: #fff;
+    border: none;
+}
+
+.delete-btn {
+    background-color: #FF4C4C;
+    color: #fff;
+    border: none;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    gap: 100px;
+}
+
+.form-row > div {
+    flex: 1;
+}
+
+.profile-form label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4C2670;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="password"] {
+    width: 100%;
+    padding: 7px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.profile-form input:focus {
+    border-color: #4C2670;
+}
+
+.progress-bar-container {
+    background-color: #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 30px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    background-color: #4C2670;
+    height: 100%;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0px;
+}
+
+.save-button {
+    padding: 8px 14px;
+    background-color: #4C2670;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
+    margin-top: 20px;
+}
+
+.save-button:hover {
+    background-color: #633291;
 }
