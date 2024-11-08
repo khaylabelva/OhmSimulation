@@ -220,6 +220,7 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+    justify-content: center;
 }
 
 .profile-link {
@@ -235,6 +236,17 @@ body {
     border-radius: 50%;
     margin-right: 10px;
     object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-user {
+    font-size: 12px;
+    color: #dac6ec;
+    font-weight: normal;
 }
 
 .profile-name {
