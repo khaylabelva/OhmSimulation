@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <div class="sidebar">
         <div class="profile">
             <a href="profile.html" class="profile-link">
@@ -73,5 +74,13 @@
             </form>
         </div>
     </div>    
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

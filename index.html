@@ -12,7 +12,7 @@
 <body>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <div class="container">
-        <div class="sidebar" id="sidebar">
+        <div class="sidebar">
             <div class="profile">
                 <a href="profile.html" class="profile-link">
                     <img src="profile-pic.png" alt="Profile Picture" class="profile-image">
@@ -22,7 +22,7 @@
                     </div>
                 </a>
             </div>
-            <nav class="nav-menu" id="navMenu">
+            <nav class="nav-menu">
                 <ul>
                     <li class="active"><a href="index.html">Dashboard</a></li>
                     <li><a href="simulation.html">Simulation</a></li>
@@ -37,7 +37,7 @@
                 </a>
             </div>
         </div>
-
+        
         <main class="content">
             <section class="welcome-section">
                 <div class="text-content">
@@ -92,15 +92,13 @@
             </section>
         </main>
     </div>
-
     <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
 
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
-        }
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
     </script>
 </body>
 </html>
