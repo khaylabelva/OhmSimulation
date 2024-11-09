@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Ohm Simulation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -28,6 +29,9 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
+                    <span class="show-password" onclick="togglePassword()">
+                        <i class="fas fa-eye-slash"></i>
+                    </span>
                     <a href="#" class="forgot-password">Forgot password?</a>
                 </div>
                 <button type="submit" class="auth-button">Log In</button>
@@ -36,5 +40,15 @@
             <p class="auth-footer">Don’t have an account? <a href="signup.html">Sign Up</a></p>
         </div>
     </div>
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const icon = document.querySelector(".show-password i");
+            const isPasswordHidden = passwordField.getAttribute("type") === "password";
+            passwordField.setAttribute("type", isPasswordHidden ? "text" : "password");
+            icon.classList.toggle("fa-eye-slash", !isPasswordHidden);
+            icon.classList.toggle("fa-eye", isPasswordHidden);
+        }
+    </script>
 </body>
 </html>

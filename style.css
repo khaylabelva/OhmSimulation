@@ -63,7 +63,7 @@ body {
 
 .form-group {
     width: 350px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     position: relative;
     text-align: left;
 }
@@ -76,7 +76,7 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 12px;
+    padding: 9px;
     margin-top: 5px;
     border-radius: 8px;
     border: 1px solid #ddd;
@@ -86,13 +86,16 @@ body {
 
 .show-password {
     position: absolute;
-    top: 50%;
     right: 12px;
-    transform: translateY(-50%);
+    transform: translateY(50%);
     cursor: pointer;
     font-size: 16px;
-    color: #999;
+    color: #dac6ec;
 }
+.show-password:hover {
+    color: #4C2670;
+}
+
 
 .forgot-password {
     color: #4C2670;
@@ -113,7 +116,7 @@ body {
 .auth-button,
 .google-button {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     font-size: 16px;
     font-weight: 600;
     border-radius: 20px;
@@ -163,7 +166,7 @@ body {
     background-color: #4C2670;
     color: #fff;
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     font-size: 16px;
     font-weight: 600;
     border-radius: 20px;
