@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 </head>
 <body>
     <div class="container_login">
@@ -21,7 +23,7 @@
                 <h2>Create Your Account</h2>
                 <p>Join us to access all features</p>
             </div>
-            <form action="#" method="post">
+            <form id="signup-form">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -38,12 +40,26 @@
                     </span>
                 </div>
                 <button type="submit" class="sign-button">Sign Up</button>
-                <button type="button" class="google-button">Sign up with Google</button>
+                <button type="button" class="google-button" onclick="signInWithGoogle()">Sign up with Google</button>
             </form>
             <p class="auth-footer">Already have an account? <a href="login.html">Login here</a></p>
         </div>
     </div>
+
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
+            authDomain: "ohmsimulation.firebaseapp.com",
+            projectId: "ohmsimulation",
+            storageBucket: "ohmsimulation.appspot.com",
+            messagingSenderId: "62744511537",
+            appId: "1:62744511537:web:337a3b3268fb90e9918110",
+            measurementId: "G-G816LW6GVL"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
         function togglePassword() {
             const passwordField = document.getElementById("password");
             const icon = document.querySelector(".show-password i");
@@ -51,6 +67,35 @@
             passwordField.setAttribute("type", isPasswordHidden ? "text" : "password");
             icon.classList.toggle("fa-eye-slash", !isPasswordHidden);
             icon.classList.toggle("fa-eye", isPasswordHidden);
+        }
+
+        document.getElementById("signup-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    alert("Sign up successful!");
+                    console.log("User signed up:", userCredential.user);
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                    console.error("Error signing up:", error);
+                });
+        });
+
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    alert("Signed up with Google successfully!");
+                    console.log("Google sign-in successful:", result.user);
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                    console.error("Error with Google sign-in:", error);
+                });
         }
     </script>
 </body>
