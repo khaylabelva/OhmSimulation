@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 </head>
 <body>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
@@ -51,17 +53,17 @@
                 <div class="form-row">
                     <div>
                         <label for="name">Profile Name</label>
-                        <input type="text" id="name" name="name" value="Lee Haechan">
+                        <input type="text" id="name" name="name">
                     </div>
                     <div>
-                        <label for="password">Password</label>
+                        <label for="password">Change Password</label>
                         <input type="password" id="password" name="password" placeholder="******">
                     </div>
                 </div>
                 <div class="form-row">
                     <div>
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="haechan@itb.ac.id">
+                        <input type="email" id="email" name="email" readonly>
                     </div>
                     <div>
                         <label for="progress">Track Progress</label>
@@ -70,24 +72,64 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="save-button">Save Changes</button>
+                <button type="button" class="save-button" onclick="saveChanges()">Save Changes</button>
             </form>
         </div>
     </div>    
+
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
+            authDomain: "ohmsimulation.firebaseapp.com",
+            projectId: "ohmsimulation",
+            storageBucket: "ohmsimulation.appspot.com",
+            messagingSenderId: "62744511537",
+            appId: "1:62744511537:web:337a3b3268fb90e9918110",
+            measurementId: "G-G816LW6GVL"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById("profileName").textContent = user.displayName || "Guest";
+                document.getElementById("name").value = user.displayName || "";
+                document.getElementById("email").value = user.email || "";
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function saveChanges() {
+            const user = auth.currentUser;
+            const newName = document.getElementById("name").value;
+            const newPassword = document.getElementById("password").value;
+
+            if (newName && newName !== user.displayName) {
+                user.updateProfile({ displayName: newName })
+                    .then(() => {
+                        document.getElementById("profileName").textContent = newName;
+                        localStorage.setItem("userName", newName);
+                        alert("Name updated successfully!");
+                    })
+                    .catch((error) => alert("Error updating name: " + error.message));
+            }
+
+            if (newPassword) {
+                user.updatePassword(newPassword)
+                    .then(() => {
+                        alert("Password updated successfully!");
+                    })
+                    .catch((error) => alert("Error updating password: " + error.message));
+            }
+        }
+
         const menuToggle = document.querySelector('.menu-toggle');
         const sidebar = document.querySelector('.sidebar');
 
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
-        });
-
-        document.getElementById("name").value = localStorage.getItem("userName") || "";
-        document.getElementById("email").value = localStorage.getItem("userEmail") || "";
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const userName = localStorage.getItem("userName") || "Guest";
-            document.getElementById("profileName").textContent = userName;
         });
     </script>
 </body>
