@@ -74,8 +74,17 @@
 
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
+                    const user = userCredential.user;
+
+                    if (user.displayName) {
+                        localStorage.setItem("userName", user.displayName);
+                    } else {
+                        localStorage.setItem("userName", "User");
+                    }
+
+                    localStorage.setItem("userEmail", user.email);
+
                     alert("Login successful!");
-                    console.log("User logged in:", userCredential.user);
                     window.location.href = "index.html";
                 })
                 .catch((error) => {

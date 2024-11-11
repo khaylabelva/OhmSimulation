@@ -71,13 +71,24 @@
 
         document.getElementById("signup-form").addEventListener("submit", (e) => {
             e.preventDefault();
+            const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-            
+
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    alert("Sign up successful!");
-                    console.log("User signed up:", userCredential.user);
+                    const user = userCredential.user;
+                    user.updateProfile({
+                        displayName: name
+                    }).then(() => {
+                        localStorage.setItem("userName", user.displayName);
+                        localStorage.setItem("userEmail", user.email);
+
+                        alert("Sign up successful!");
+                        window.location.href = "login.html";
+                    }).catch((error) => {
+                        console.error("Error updating profile:", error);
+                    });
                 })
                 .catch((error) => {
                     alert("Error: " + error.message);
@@ -90,7 +101,7 @@
             auth.signInWithPopup(provider)
                 .then((result) => {
                     alert("Signed up with Google successfully!");
-                    console.log("Google sign-in successful:", result.user);
+                    window.location.href = "profile.html";
                 })
                 .catch((error) => {
                     alert("Error: " + error.message);
