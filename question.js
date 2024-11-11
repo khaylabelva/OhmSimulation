@@ -6,6 +6,11 @@ function toggleMenu() {
     sidebar.classList.toggle('active');
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const userName = localStorage.getItem("userName") || "Guest";
+    document.getElementById("profileName").textContent = userName;
+});
+
 const questions = [
     {
         text: "Dalam sebuah eksperimen, sebuah resistor dengan hambatan variabel terhubung ke sumber tegangan konstan. Ketika hambatan awal adalah 5 Ohm, arus yang mengalir melalui resistor adalah 3 Ampere. Ketika hambatan ditingkatkan menjadi 15 Ohm, bagaimana perubahan daya disipasi dalam resistor sesuai hukum Ohm?",

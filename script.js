@@ -11,6 +11,11 @@ const batteriesContainer = document.getElementById('batteries');
 const leftArrowElement = document.querySelector('.left-arrow');
 const rightArrowElement = document.querySelector('.right-arrow');
 
+document.addEventListener("DOMContentLoaded", () => {
+    const userName = localStorage.getItem("userName") || "Guest";
+    document.getElementById("profileName").textContent = userName;
+});
+
 function toggleMenu() {
     const navMenu = document.getElementById('navMenu');
     navMenu.classList.toggle('active');
