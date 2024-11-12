@@ -48,7 +48,7 @@
                 <input type="file" id="profilePicInput" accept="image/*" onchange="uploadProfilePictureBase64()" style="display:none;">
                 <div class="profile-buttons">
                     <button class="change-btn" onclick="document.getElementById('profilePicInput').click()">Change Picture</button>
-                    <button class="delete-btn">Delete Picture</button>
+                    <button class="delete-btn" onclick="deleteProfilePicture()">Delete Picture</button>
                 </div>
             </div>
             <form class="profile-form">
@@ -118,6 +118,12 @@
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
         });
+
+        function deleteProfilePicture() {
+            const defaultProfilePic = "profile-pic.png";
+            document.getElementById("profileImageLarge").src = defaultProfilePic;
+            temporaryProfilePicture = defaultProfilePic;
+        }
 
         function previewProfilePicture() {
             const fileInput = document.getElementById("profilePicInput");
