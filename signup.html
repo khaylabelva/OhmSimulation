@@ -40,7 +40,6 @@
                     </span>
                 </div>
                 <button type="submit" class="sign-button">Sign Up</button>
-                <button type="button" class="google-button" onclick="signInWithGoogle()">Sign up with Google</button>
             </form>
             <p class="auth-footer">Already have an account? <a href="login.html">Login here</a></p>
         </div>
@@ -95,19 +94,6 @@
                     console.error("Error signing up:", error);
                 });
         });
-
-        function signInWithGoogle() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider)
-                .then((result) => {
-                    alert("Signed up with Google successfully!");
-                    window.location.href = "profile.html";
-                })
-                .catch((error) => {
-                    alert("Error: " + error.message);
-                    console.error("Error with Google sign-in:", error);
-                });
-        }
     </script>
 </body>
 </html>

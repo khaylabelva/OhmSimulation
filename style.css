@@ -96,25 +96,7 @@ body {
     color: #4C2670;
 }
 
-
-.forgot-password {
-    color: #4C2670;
-    text-decoration: underline;
-    font-size: 13px;
-    margin-top: 20px;
-    position: absolute;
-    right: 0;
-    bottom: -28px;
-    width: 100%;
-    text-align: right;
-}
-
-.forgot-password:hover {
-    color: #b07edf;
-}
-
-.auth-button,
-.google-button {
+.auth-button{
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -124,26 +106,12 @@ body {
     cursor: pointer;
     margin-top: 15px;
     transition: background-color 0.3s ease;
-}
-
-.auth-button {
     background-color: #4C2670;
     color: #fff;
-    margin-top: 40px;
 }
 
 .auth-button:hover {
     background-color: #633291;
-}
-
-.google-button {
-    background-color: #f5f5f5;
-    color: #4C2670;
-    border: 1px solid #ddd;
-}
-
-.google-button:hover {
-    background-color: #e0e0e0;
 }
 
 .auth-footer {
@@ -245,7 +213,7 @@ body {
         border-radius: 8px;
     }
 
-    .sign-button, .google-button {
+    .sign-button {
         width: 100%;
         padding: 10px;
         margin-top: 15px;
