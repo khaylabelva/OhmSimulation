@@ -14,6 +14,11 @@ const rightArrowElement = document.querySelector('.right-arrow');
 document.addEventListener("DOMContentLoaded", () => {
     const userName = localStorage.getItem("userName") || "Guest";
     document.getElementById("profileName").textContent = userName;
+
+    const savedPic = localStorage.getItem("profilePicture");
+    if (savedPic) {
+        document.getElementById("profile-picture").src = savedPic;
+    }
 });
 
 function toggleMenu() {

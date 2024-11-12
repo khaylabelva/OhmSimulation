@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <div class="sidebar">
         <div class="profile">
             <a href="profile.html" class="profile-link">
-                <img src="profile-pic.png" alt="Profile Picture" class="profile-image">
+                <img id="profile-picture" src="profile-pic.png" alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <span class="profile-name" id="profileName">Loading...</span>
                     <span class="profile-user">Profile User</span>
@@ -43,9 +44,10 @@
         <div class="profile-container">
             <div class="profile-picture-section">
                 <span class="profile-picture-label">Profile Picture</span>
-                <img src="profile-pic.png" alt="Profile Picture" class="profile-image-large">
+                <img id="profileImageLarge" src="profile-pic.png" alt="Profile Picture" class="profile-image-large">
+                <input type="file" id="profilePicInput" accept="image/*" onchange="uploadProfilePictureBase64()" style="display:none;">
                 <div class="profile-buttons">
-                    <button class="change-btn">Change Picture</button>
+                    <button class="change-btn" onclick="document.getElementById('profilePicInput').click()">Change Picture</button>
                     <button class="delete-btn">Delete Picture</button>
                 </div>
             </div>
@@ -90,16 +92,60 @@
 
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
+        const firestore = firebase.firestore(); 
+
+        let temporaryProfilePicture = null;
 
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById("profileName").textContent = user.displayName || "Guest";
                 document.getElementById("name").value = user.displayName || "";
                 document.getElementById("email").value = user.email || "";
+                
+                const savedPic = localStorage.getItem("profilePicture");
+                if (savedPic) {
+                    document.getElementById("profileImageLarge").src = savedPic;
+                    document.getElementById("profile-picture").src = savedPic;
+                }
             } else {
                 window.location.href = "login.html";
             }
         });
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        function previewProfilePicture() {
+            const fileInput = document.getElementById("profilePicInput");
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    temporaryProfilePicture = reader.result;
+                    document.getElementById("profileImageLarge").src = temporaryProfilePicture;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadProfilePictureBase64() {
+            const fileInput = document.getElementById("profilePicInput");
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    temporaryProfilePicture = reader.result;
+                    document.getElementById("profileImageLarge").src = temporaryProfilePicture;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
         function saveChanges() {
             const user = auth.currentUser;
@@ -123,14 +169,20 @@
                     })
                     .catch((error) => alert("Error updating password: " + error.message));
             }
+
+            if (temporaryProfilePicture) {
+                firestore.collection("users").doc(user.uid).set({
+                    profilePicture: temporaryProfilePicture
+                }, { merge: true }).then(() => {
+                    document.getElementById("profile-picture").src = temporaryProfilePicture;
+                    localStorage.setItem("profilePicture", temporaryProfilePicture);
+                    alert("Profile picture updated successfully!");
+                    temporaryProfilePicture = null;
+                }).catch(error => {
+                    alert("Error updating profile picture: " + error.message);
+                });
+            }
         }
-
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
     </script>
 </body>
 </html>
