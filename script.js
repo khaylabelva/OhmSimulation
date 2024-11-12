@@ -11,14 +11,41 @@ const batteriesContainer = document.getElementById('batteries');
 const leftArrowElement = document.querySelector('.left-arrow');
 const rightArrowElement = document.querySelector('.right-arrow');
 
-document.addEventListener("DOMContentLoaded", () => {
-    const userName = localStorage.getItem("userName") || "Guest";
-    document.getElementById("profileName").textContent = userName;
+const firebaseConfig = {
+    apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
+    authDomain: "ohmsimulation.firebaseapp.com",
+    projectId: "ohmsimulation",
+    storageBucket: "ohmsimulation.appspot.com",
+    messagingSenderId: "62744511537",
+    appId: "1:62744511537:web:337a3b3268fb90e9918110",
+    measurementId: "G-G816LW6GVL"
+};
 
-    const savedPic = localStorage.getItem("profilePicture");
-    if (savedPic) {
-        document.getElementById("profile-picture").src = savedPic;
-    }
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const firestore = firebase.firestore(); 
+
+document.addEventListener("DOMContentLoaded", () => {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            document.getElementById("profileName").textContent = user.displayName || "Guest";
+
+            firestore.collection("users").doc(user.uid).get().then(doc => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    const profilePic = userData.profilePicture || "profile-pic.png";
+                    document.getElementById("profile-picture").src = profilePic;
+                } else {
+                    document.getElementById("profile-picture").src = "profile-pic.png";
+                }
+            }).catch(error => {
+                console.error("Error fetching user profile:", error);
+                document.getElementById("profile-picture").src = "profile-pic.png";
+            });
+        } else {
+            window.location.href = "login.html";
+        }
+    });
 });
 
 function toggleMenu() {

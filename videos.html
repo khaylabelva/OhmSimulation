@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
@@ -44,43 +47,49 @@
                 <p>Merupakan fitur berisi video pembelajaran lengkap dan interaktif. Terdapat lebih dari 1 video yang bisa ditonton.</p>
 
                 <div class="video-grid">
-                    <div class="video-card">
+                    <div class="video-card" data-video-id="video1" onclick="markAsWatched('video1')">
                         <iframe src="https://www.youtube.com/embed/HsLLq6Rm5tU?si=D_jE-CgPRl4fUMEw" frameborder="0" allowfullscreen></iframe>
+                        <div class="watched-status" id="status-video1">✔️</div>
                         <div class="video-description">
                             <h3>Ohm's Law Explanation</h3>
                             <p class="video-duration">Duration: 09:57</p>
                         </div>
                     </div>
-                    <div class="video-card">
+                    <div class="video-card" data-video-id="video2" onclick="markAsWatched('video1')">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/_rSHqvjDksg?si=Cyet2s_VZRMrht1l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="watched-status" id="status-video1">✔️</div>
                         <div class="video-description">
                             <h3>Ohm's Law Explanation</h3>
                             <p class="video-duration">Duration: 13:56</p>
                         </div>
                     </div>
-                    <div class="video-card">
+                    <div class="video-card" data-video-id="video3" onclick="markAsWatched('video1')">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/jiYb-qSWgYY?si=JwxRUgZByS1Ys7LC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="watched-status" id="status-video1">✔️</div>
                         <div class="video-description">
                             <h3>Ohm's Law Explanation</h3>
                             <p class="video-duration">Duration: 12:24</p>
                         </div>
                     </div>
-                    <div class="video-card">
+                    <div class="video-card" data-video-id="video4" onclick="markAsWatched('video1')">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/6wbtn7XW_jw?si=ZKlbCfF30NSyLK1i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="watched-status" id="status-video1">✔️</div>
                         <div class="video-description">
                             <h3>Example Problems 1</h3>
                             <p class="video-duration">Duration: 07:32</p>
                         </div>
                     </div>
-                    <div class="video-card">
+                    <div class="video-card" data-video-id="video5" onclick="markAsWatched('video1')">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/-PiB2Xd3P94?si=jqZGKhugPWSeQL1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="watched-status" id="status-video1">✔️</div>
                         <div class="video-description">
                             <h3>Example Problems 2</h3>
                             <p class="video-duration">Duration: 14:05</p>
                         </div>
                     </div>
-                    <div class="video-card">
+                    <div class="video-card" data-video-id="video6" onclick="markAsWatched('video1')">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/iVQ0kIUJ00c?si=5fKKlKqcbHRAb9Vk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="watched-status" id="status-video1">✔️</div>
                         <div class="video-description">
                             <h3>Example Problems 3</h3>
                             <p class="video-duration">Duration: 03:40</p>
@@ -91,6 +100,20 @@
         </main>
     </div>
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
+            authDomain: "ohmsimulation.firebaseapp.com",
+            projectId: "ohmsimulation",
+            storageBucket: "ohmsimulation.appspot.com",
+            messagingSenderId: "62744511537",
+            appId: "1:62744511537:web:337a3b3268fb90e9918110",
+            measurementId: "G-G816LW6GVL"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const firestore = firebase.firestore(); 
+
         function toggleMenu() {
             const navMenu = document.getElementById('navMenu');
             navMenu.classList.toggle('active');
@@ -100,13 +123,26 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            const userName = localStorage.getItem("userName") || "Guest";
-            document.getElementById("profileName").textContent = userName;
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    document.getElementById("profileName").textContent = user.displayName || "Guest";
 
-            const savedPic = localStorage.getItem("profilePicture");
-            if (savedPic) {
-                document.getElementById("profile-picture").src = savedPic;
-            }
+                    firestore.collection("users").doc(user.uid).get().then(doc => {
+                        if (doc.exists) {
+                            const userData = doc.data();
+                            const profilePic = userData.profilePicture || "profile-pic.png";
+                            document.getElementById("profile-picture").src = profilePic;
+                        } else {
+                            document.getElementById("profile-picture").src = "profile-pic.png";
+                        }
+                    }).catch(error => {
+                        console.error("Error fetching user profile:", error);
+                        document.getElementById("profile-picture").src = "profile-pic.png";
+                    });
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
         });
     </script>
 </body>

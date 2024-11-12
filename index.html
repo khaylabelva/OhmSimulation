@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
@@ -94,14 +97,39 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const userName = localStorage.getItem("userName") || "Guest";
-            document.getElementById("profileName").textContent = userName;
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
+            authDomain: "ohmsimulation.firebaseapp.com",
+            projectId: "ohmsimulation",
+            storageBucket: "ohmsimulation.appspot.com",
+            messagingSenderId: "62744511537",
+            appId: "1:62744511537:web:337a3b3268fb90e9918110",
+            measurementId: "G-G816LW6GVL"
+        };
 
-            const savedPic = localStorage.getItem("profilePicture");
-            if (savedPic) {
-                document.getElementById("profile-picture").src = savedPic;
-            }
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const firestore = firebase.firestore(); 
+
+        document.addEventListener("DOMContentLoaded", () => {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    document.getElementById("profileName").textContent = user.displayName || "Guest";
+
+                    firestore.collection("users").doc(user.uid).get().then(doc => {
+                        if (doc.exists && doc.data().profilePicture) {
+                            document.getElementById("profile-picture").src = doc.data().profilePicture;
+                        } else {
+                            document.getElementById("profile-picture").src = "profile-pic.png";
+                        }
+                    }).catch(error => {
+                        console.error("Error fetching profile picture:", error);
+                        document.getElementById("profile-picture").src = "profile-pic.png";
+                    });
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
         });
 
         const menuToggle = document.querySelector('.menu-toggle');

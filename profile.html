@@ -101,12 +101,20 @@
                 document.getElementById("profileName").textContent = user.displayName || "Guest";
                 document.getElementById("name").value = user.displayName || "";
                 document.getElementById("email").value = user.email || "";
-                
-                const savedPic = localStorage.getItem("profilePicture");
-                if (savedPic) {
-                    document.getElementById("profileImageLarge").src = savedPic;
-                    document.getElementById("profile-picture").src = savedPic;
-                }
+
+                firestore.collection("users").doc(user.uid).get().then(doc => {
+                    if (doc.exists && doc.data().profilePicture) {
+                        const userPic = doc.data().profilePicture;
+                        document.getElementById("profileImageLarge").src = userPic;
+                        document.getElementById("profile-picture").src = userPic;
+                    } else {
+                        const defaultProfilePic = "profile-pic.png";
+                        document.getElementById("profileImageLarge").src = defaultProfilePic;
+                        document.getElementById("profile-picture").src = defaultProfilePic;
+                    }
+                }).catch(error => {
+                    console.error("Error fetching profile picture: ", error);
+                });
             } else {
                 window.location.href = "login.html";
             }
