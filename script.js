@@ -12,8 +12,9 @@ const leftArrowElement = document.querySelector('.left-arrow');
 const rightArrowElement = document.querySelector('.right-arrow');
 
 const writeButton = document.getElementById('write-button');
+const historyModal = document.getElementById('history-modal');
+const closeButton = document.querySelector('.close-button');
 const historyButton = document.getElementById('history-button');
-const historyContainer = document.getElementById('history-container');
 const historyList = document.getElementById('history-list');
 
 writeButton.addEventListener('click', () => {
@@ -55,33 +56,35 @@ historyButton.addEventListener('click', () => {
                 .get()
                 .then(querySnapshot => {
                     historyList.innerHTML = '';
+                    let index = 1;
                     querySnapshot.forEach(doc => {
                         const data = doc.data();
-                        const listItem = document.createElement('li');
+                        const listItem = document.createElement('div');
+                        listItem.className = 'history-item';
 
                         listItem.innerHTML = `
-                            Voltage: ${data.voltage}V, 
-                            Resistance: ${data.resistance}Ω, 
-                            Current: ${data.current} mA, 
-                            Date: ${data.timestamp.toDate().toLocaleString()}
+                            <div>${index}</div>
+                            <div>${data.voltage}V</div>
+                            <div>${data.resistance}Ω</div>
+                            <div>${data.current} mA</div>
+                            <div>${data.timestamp.toDate().toLocaleString()}</div>
                         `;
 
+                        const screenshotCell = document.createElement('div');
                         if (data.screenshot) {
                             const downloadLink = document.createElement('a');
                             downloadLink.href = data.screenshot;
                             downloadLink.download = `screenshot_${data.timestamp.toDate().toLocaleString()}.png`;
-                            downloadLink.textContent = "Download Screenshot";
-                            downloadLink.style.display = "block";
-                            downloadLink.style.marginTop = "10px";
-                            listItem.appendChild(downloadLink);
+                            downloadLink.textContent = "Download";
+                            screenshotCell.appendChild(downloadLink);
                         }
+                        listItem.appendChild(screenshotCell);
 
+                        const actionsCell = document.createElement('div');
                         const deleteButton = document.createElement('button');
-                        deleteButton.textContent = "Delete History";
-                        deleteButton.style.marginTop = "10px";
-                        deleteButton.style.backgroundColor = "red";
-                        deleteButton.style.color = "white";
-
+                        deleteButton.textContent = "Delete";
+                        deleteButton.classList.add('delete-btn');
+                        
                         deleteButton.addEventListener('click', () => {
                             firestore.collection("users").doc(user.uid).collection("simulationHistory")
                                 .doc(doc.id)
@@ -95,10 +98,14 @@ historyButton.addEventListener('click', () => {
                                 });
                         });
 
-                        listItem.appendChild(deleteButton);
+                        actionsCell.appendChild(deleteButton);
+                        listItem.appendChild(actionsCell);
+
                         historyList.appendChild(listItem);
+                        index++;
                     });
-                    historyContainer.style.display = 'block';
+                    historyModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
                 }).catch(error => {
                     console.error("Error retrieving history:", error);
                     alert("Failed to retrieve history. Try again later.");
@@ -107,6 +114,11 @@ historyButton.addEventListener('click', () => {
             alert("Please log in to view your history.");
         }
     });
+});
+
+document.querySelector('.close-button').addEventListener('click', () => {
+    historyModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 });
 
 const firebaseConfig = {

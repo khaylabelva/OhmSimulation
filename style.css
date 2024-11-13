@@ -852,9 +852,88 @@ label {
     cursor: pointer;
 }
 
-.history-container {
+/* Pop Up History */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 100;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #f3ecfa;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    padding: 20px 20px 30px 30px;
+    border-radius: 8px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #4C2670;
     position: relative;
-    margin-top: 20px;
+    text-align: center;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-button {
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #4C2670;
+    padding: 5px;
+}
+
+.history-header, .history-item {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1.5fr 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #c7aedf;
+}
+
+.history-header {
+    font-weight: bold;
+    background-color: #d5c9e0;
+}
+
+.history-item {
+    font-size: 13px;
+    color: #4C2670;
+    text-align: center;
+}
+
+.history-list {
+    padding: 0;
+    margin: 0;
+}
+
+.delete-btn {
+    background-color: #886060;
+    color: white;
+    padding: 1px 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 2px;
+}
+
+.delete-btn:hover {
+    background-color: #722222;
 }
 
 /* Responsive Design */
