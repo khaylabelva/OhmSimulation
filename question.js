@@ -125,11 +125,17 @@ function loadQuestion(index) {
     const progressBar = document.getElementById('progress');
     const nextButton = document.getElementById('next-button');
 
-    nextButton.style.display = 'none';
+    nextButton.style.display = 'none'; // Sembunyikan tombol di awal
+
+    // Jika sudah selesai, langsung tampilkan halaman "Finish"
+    if (index >= questions.length) {
+        finishQuiz();
+        return;
+    }
 
     questionText.innerHTML = `<p>${questions[index].text}</p>`;
-    
     answersContainer.innerHTML = '';
+
     questions[index].answers.forEach((answer, i) => {
         const label = document.createElement('label');
         label.innerHTML = `<input type="radio" name="answer" value="${i}"> ${answer}`;
@@ -139,19 +145,14 @@ function loadQuestion(index) {
     questionNumber.textContent = `${index + 1} / ${questions.length}`;
     isAnswered = false;
 
-    const labels = document.querySelectorAll('.answers label'); 
+    const labels = document.querySelectorAll('.answers label');
     labels.forEach((label, i) => {
-        label.addEventListener('click', function() {
+        label.addEventListener('click', function () {
             if (!isAnswered) {
                 isAnswered = true;
 
                 labels.forEach(lbl => {
                     lbl.style.pointerEvents = 'none';
-                });
-
-                labels.forEach(lbl => {
-                    lbl.style.backgroundColor = 'white';
-                    lbl.style.borderColor = '#EAEAEA';
                 });
 
                 const correctAnswerIndex = questions[index].correctAnswer;
@@ -165,9 +166,7 @@ function loadQuestion(index) {
                     labels[correctAnswerIndex].style.borderColor = 'green';
                 }
 
-                const progress = (currentQuestion + 1) * progressIncrement;
-                progressBar.style.width = `${progress}%`;
-
+                progressBar.style.width = `${(currentQuestion + 1) * progressIncrement}%`;
                 nextButton.style.display = 'block';
             }
         });
@@ -194,7 +193,7 @@ function saveStateToFirestore() {
 document.getElementById('next-button').addEventListener('click', function nextQuestionHandler() {
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
-        saveStateToFirestore();
+        saveStateToFirestore(); // Simpan state setiap kali soal berpindah
         loadQuestion(currentQuestion);
 
         if (currentQuestion === questions.length - 1) {
@@ -207,9 +206,14 @@ document.getElementById('next-button').addEventListener('click', function nextQu
 });
 
 function finishQuiz() {
+    // Simpan state terakhir (opsional)
+    saveStateToFirestore();
+
+    // Sembunyikan kontainer soal
     const questionContainer = document.querySelector('.question-container');
     questionContainer.style.display = 'none';
 
+    // Tampilkan halaman selesai
     const finishPage = document.getElementById('finish-page');
     finishPage.style.display = 'block';
 }
