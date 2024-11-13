@@ -836,6 +836,27 @@ label {
     transform: translate(-50%, -50%);
 }
 
+.simulation-actions {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.action-icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.history-container {
+    position: relative;
+    margin-top: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .formula-slider-container {

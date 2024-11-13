@@ -11,6 +11,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 <body>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
@@ -81,6 +83,15 @@
                         <div class="resistor-box">Resistor</div>
                     </div>
                     <div id="current" class="current">Current = 9.00 mA</div>
+                </div>
+                <div class="simulation-actions">
+                    <img id="write-button" src="write.png" alt="Write" class="action-icon">
+                    <img id="history-button" src="history.png" alt="History" class="action-icon">
+                </div>
+                
+                <div id="history-container" class="history-container" style="display: none;">
+                    <h2>Simulation History</h2>
+                    <ul id="history-list"></ul>
                 </div>
             </section>
         </main>

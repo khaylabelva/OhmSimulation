@@ -11,6 +11,104 @@ const batteriesContainer = document.getElementById('batteries');
 const leftArrowElement = document.querySelector('.left-arrow');
 const rightArrowElement = document.querySelector('.right-arrow');
 
+const writeButton = document.getElementById('write-button');
+const historyButton = document.getElementById('history-button');
+const historyContainer = document.getElementById('history-container');
+const historyList = document.getElementById('history-list');
+
+writeButton.addEventListener('click', () => {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            const voltage = parseFloat(voltageSlider.value);
+            const resistance = parseFloat(resistanceSlider.value);
+            const current = calculateCurrent(voltage, resistance);
+            const timestamp = new Date();
+
+            const simulationArea = document.querySelector('.simulation-section');
+            html2canvas(simulationArea).then(canvas => {
+                const screenshotBase64 = canvas.toDataURL();
+
+                firestore.collection("users").doc(user.uid).collection("simulationHistory").add({
+                    voltage: voltage.toFixed(1),
+                    resistance: resistance,
+                    current: current.toFixed(2),
+                    timestamp: timestamp,
+                    screenshot: screenshotBase64
+                }).then(() => {
+                    alert("Simulation data saved successfully with screenshot!");
+                }).catch(error => {
+                    console.error("Error saving simulation data:", error);
+                    alert("Failed to save simulation data. Try again later.");
+                });
+            });
+        } else {
+            alert("Please log in to save your simulation.");
+        }
+    });
+});
+
+historyButton.addEventListener('click', () => {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            firestore.collection("users").doc(user.uid).collection("simulationHistory")
+                .orderBy("timestamp", "desc")
+                .get()
+                .then(querySnapshot => {
+                    historyList.innerHTML = '';
+                    querySnapshot.forEach(doc => {
+                        const data = doc.data();
+                        const listItem = document.createElement('li');
+
+                        listItem.innerHTML = `
+                            Voltage: ${data.voltage}V, 
+                            Resistance: ${data.resistance}Ω, 
+                            Current: ${data.current} mA, 
+                            Date: ${data.timestamp.toDate().toLocaleString()}
+                        `;
+
+                        if (data.screenshot) {
+                            const downloadLink = document.createElement('a');
+                            downloadLink.href = data.screenshot;
+                            downloadLink.download = `screenshot_${data.timestamp.toDate().toLocaleString()}.png`;
+                            downloadLink.textContent = "Download Screenshot";
+                            downloadLink.style.display = "block";
+                            downloadLink.style.marginTop = "10px";
+                            listItem.appendChild(downloadLink);
+                        }
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = "Delete History";
+                        deleteButton.style.marginTop = "10px";
+                        deleteButton.style.backgroundColor = "red";
+                        deleteButton.style.color = "white";
+
+                        deleteButton.addEventListener('click', () => {
+                            firestore.collection("users").doc(user.uid).collection("simulationHistory")
+                                .doc(doc.id)
+                                .delete()
+                                .then(() => {
+                                    alert("History item deleted successfully.");
+                                    listItem.remove();
+                                }).catch(error => {
+                                    console.error("Error deleting history item:", error);
+                                    alert("Failed to delete history. Try again later.");
+                                });
+                        });
+
+                        listItem.appendChild(deleteButton);
+                        historyList.appendChild(listItem);
+                    });
+                    historyContainer.style.display = 'block';
+                }).catch(error => {
+                    console.error("Error retrieving history:", error);
+                    alert("Failed to retrieve history. Try again later.");
+                });
+        } else {
+            alert("Please log in to view your history.");
+        }
+    });
+});
+
 const firebaseConfig = {
     apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
     authDomain: "ohmsimulation.firebaseapp.com",
