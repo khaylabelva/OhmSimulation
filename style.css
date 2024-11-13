@@ -846,10 +846,44 @@ label {
     gap: 15px;
 }
 
+.action-container {
+    position: relative;
+}
+
 .action-icon {
     width: 50px;
     height: 50px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.action-icon:hover {
+    transform: scale(1.1);
+}
+
+.tooltip {
+    position: absolute;
+    top: 50%;
+    right: 60px;
+    transform: translateY(-50%);
+    background-color: #c2b0e4;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+}
+
+.action-container:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+#history-button:hover {
+    transform: scale(1.1);
 }
 
 /* Pop Up History */
@@ -895,6 +929,13 @@ label {
     cursor: pointer;
     color: #4C2670;
     padding: 5px;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+.close-button:hover {
+    color: #9772b9;
+    transform: scale(1.2);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .history-header, .history-item {
@@ -923,17 +964,18 @@ label {
 }
 
 .delete-btn {
-    background-color: #886060;
-    color: white;
-    padding: 1px 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 13px;
-    border-radius: 2px;
+    background-color: #d63434 !important;
+    color: white !important;
+    padding: 2px 6px !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+    border-radius: 4px !important;
+    margin-bottom: 10px;
 }
 
 .delete-btn:hover {
-    background-color: #722222;
+    background-color: #ff0000!important;
 }
 
 /* Responsive Design */
