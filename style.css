@@ -863,18 +863,21 @@ label {
 
 .tooltip {
     position: absolute;
-    top: 50%;
+    top: 10%;
     right: 60px;
     transform: translateY(-50%);
     background-color: #c2b0e4;
     color: white;
     padding: 5px 10px;
-    border-radius: 4px;
-    white-space: nowrap;
     font-size: 14px;
+    white-space: nowrap;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
     visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 0;
 }
 
 .action-container:hover .tooltip {
