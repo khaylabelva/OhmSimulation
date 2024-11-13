@@ -56,6 +56,14 @@ historyButton.addEventListener('click', () => {
                 .get()
                 .then(querySnapshot => {
                     historyList.innerHTML = '';
+
+                    const updateIndexes = () => {
+                        const items = document.querySelectorAll('.history-item');
+                        items.forEach((item, i) => {
+                            item.querySelector('div').textContent = i + 1;
+                        });
+                    };
+
                     let index = 1;
                     querySnapshot.forEach(doc => {
                         const data = doc.data();
@@ -83,8 +91,8 @@ historyButton.addEventListener('click', () => {
                         const actionsCell = document.createElement('div');
                         const deleteButton = document.createElement('button');
                         deleteButton.textContent = "Delete";
-                        deleteButton.classList.add('delete-btn');
-                        
+                        deleteButton.classList.add('delete-button');
+
                         deleteButton.addEventListener('click', () => {
                             firestore.collection("users").doc(user.uid).collection("simulationHistory")
                                 .doc(doc.id)
@@ -92,6 +100,7 @@ historyButton.addEventListener('click', () => {
                                 .then(() => {
                                     alert("History item deleted successfully.");
                                     listItem.remove();
+                                    updateIndexes();
                                 }).catch(error => {
                                     console.error("Error deleting history item:", error);
                                     alert("Failed to delete history. Try again later.");
