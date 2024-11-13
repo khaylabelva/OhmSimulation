@@ -68,7 +68,7 @@
                         <input type="email" id="email" name="email" readonly>
                     </div>
                     <div>
-                        <label for="progress">Track Progress</label>
+                        <label for="progress">Track Video Progress</label>
                         <div class="progress-bar-container">
                             <div class="progress-bar" style="width: 30%;">30%</div>
                         </div>
@@ -196,6 +196,47 @@
                     alert("Error updating profile picture: " + error.message);
                 });
             }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    loadUserProfile(user);
+                    updateVideoProgress(user);
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+        });
+
+        function loadUserProfile(user) {
+            document.getElementById("profileName").textContent = user.displayName || "Guest";
+            document.getElementById("name").value = user.displayName || "";
+            document.getElementById("email").value = user.email || "";
+            firestore.collection("users").doc(user.uid).get().then(doc => {
+                if (doc.exists && doc.data().profilePicture) {
+                    const userPic = doc.data().profilePicture;
+                    document.getElementById("profileImageLarge").src = userPic;
+                    document.getElementById("profile-picture").src = userPic;
+                }
+            });
+        }
+
+        function updateVideoProgress(user) {
+            const totalVideos = 6;
+            firestore.collection("users").doc(user.uid).get().then(doc => {
+                if (doc.exists) {
+                    const watchedVideos = doc.data().watchedVideos || [];
+                    const watchedCount = watchedVideos.length;
+                    const progressPercentage = Math.round((watchedCount / totalVideos) * 100);
+
+                    const progressBar = document.querySelector(".progress-bar");
+                    progressBar.style.width = `${progressPercentage}%`;
+                    progressBar.textContent = `${progressPercentage}%`;
+                }
+            }).catch(error => {
+                console.error("Error fetching video progress: ", error);
+            });
         }
     </script>
 </body>

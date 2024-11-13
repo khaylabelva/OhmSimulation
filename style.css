@@ -971,8 +971,10 @@ label {
 
 .video-description {
     margin-top: 3px;
-    display: block;
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
+    position: relative;
 }
 
 .video-description h3 {
@@ -984,6 +986,22 @@ label {
     font-size: 14px;
     color: orange;
     margin-top: 2px;
+}
+
+.mark-watched-btn {
+    align-self: flex-end;
+    background-color: #4C2670;
+    color: #fff;
+    font-size: 13px;
+    padding: 3px 8px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mark-watched-btn:hover {
+    background-color: #3a1e58;
 }
 
 .watched-status {

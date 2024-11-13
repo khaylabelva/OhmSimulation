@@ -47,68 +47,76 @@
                 <p>Merupakan fitur berisi video pembelajaran lengkap dan interaktif. Terdapat lebih dari 1 video yang bisa ditonton.</p>
 
                 <div class="video-grid">
-                    <div class="video-card" data-video-id="video1" onclick="markAsWatched('video1')">
+                    <div class="video-card" data-video-id="video1">
                         <iframe src="https://www.youtube.com/embed/HsLLq6Rm5tU?si=D_jE-CgPRl4fUMEw" frameborder="0" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video1" style="display: none;">
                             <img src="checklist.png" alt="Watched" class="checklist-icon">
-                        </div>                        
+                        </div>
+                                     
                         <div class="video-description">
                             <h3>Ohm's Law Explanation</h3>
                             <p class="video-duration">Duration: 09:57</p>
+                            <button class="mark-watched-btn" onclick="markAsWatched('video1')">Mark as Watched</button>    
                         </div>
                     </div>
-                    <div class="video-card" data-video-id="video2" onclick="markAsWatched('video2')">
+                    <div class="video-card" data-video-id="video2">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/_rSHqvjDksg?si=Cyet2s_VZRMrht1l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video2" style="display: none;">
                             <img src="checklist.png" alt="Watched" class="checklist-icon">
                         </div>
-                        
+                         
                         <div class="video-description">
                             <h3>Ohm's Law Explanation</h3>
                             <p class="video-duration">Duration: 13:56</p>
+                            <button class="mark-watched-btn" onclick="markAsWatched('video2')">Mark as Watched</button>  
                         </div>
                     </div>
-                    <div class="video-card" data-video-id="video3" onclick="markAsWatched('video3')">
+                    <div class="video-card" data-video-id="video3">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/jiYb-qSWgYY?si=JwxRUgZByS1Ys7LC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video3" style="display: none;">
                             <img src="checklist.png" alt="Watched" class="checklist-icon">
                         </div>
-                        
+                         
                         <div class="video-description">
                             <h3>Ohm's Law Explanation</h3>
                             <p class="video-duration">Duration: 12:24</p>
+                            <button class="mark-watched-btn" onclick="markAsWatched('video3')">Mark as Watched</button>  
                         </div>
                     </div>
-                    <div class="video-card" data-video-id="video4" onclick="markAsWatched('video4')">
+                    <div class="video-card" data-video-id="video4">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/6wbtn7XW_jw?si=ZKlbCfF30NSyLK1i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video4" style="display: none;">
                             <img src="checklist.png" alt="Watched" class="checklist-icon">
                         </div>
-                        
+                          
                         <div class="video-description">
                             <h3>Example Problems 1</h3>
                             <p class="video-duration">Duration: 07:32</p>
+                            <button class="mark-watched-btn" onclick="markAsWatched('video4')">Mark as Watched</button> 
                         </div>
                     </div>
-                    <div class="video-card" data-video-id="video5" onclick="markAsWatched('video5')">
+                    <div class="video-card" data-video-id="video5">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/-PiB2Xd3P94?si=jqZGKhugPWSeQL1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video5" style="display: none;">
                             <img src="checklist.png" alt="Watched" class="checklist-icon">
                         </div>
-                        
+                          
                         <div class="video-description">
                             <h3>Example Problems 2</h3>
                             <p class="video-duration">Duration: 14:05</p>
+                            <button class="mark-watched-btn" onclick="markAsWatched('video5')">Mark as Watched</button> 
                         </div>
                     </div>
-                    <div class="video-card" data-video-id="video6" onclick="markAsWatched('video6')">
+                    <div class="video-card" data-video-id="video6">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/iVQ0kIUJ00c?si=5fKKlKqcbHRAb9Vk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video6" style="display: none;">
                             <img src="checklist.png" alt="Watched" class="checklist-icon">
                         </div>
+                         
                         <div class="video-description">
                             <h3>Example Problems 3</h3>
                             <p class="video-duration">Duration: 03:40</p>
+                            <button class="mark-watched-btn" onclick="markAsWatched('video6')">Mark as Watched</button>  
                         </div>
                     </div>
                 </div>
@@ -174,8 +182,13 @@
                     const watchedVideos = doc.data().watchedVideos || [];
                     watchedVideos.forEach(videoId => {
                         const statusElement = document.getElementById(`status-${videoId}`);
+                        const markWatchedButton = document.querySelector(`[data-video-id="${videoId}"] .mark-watched-btn`);
+
                         if (statusElement) {
                             statusElement.style.display = "block";
+                        }
+                        if (markWatchedButton) {
+                            markWatchedButton.style.display = "none";
                         }
                     });
                 } else {
@@ -200,8 +213,13 @@
                 watchedVideos: firebase.firestore.FieldValue.arrayUnion(videoId)
             }).then(() => {
                 const statusElement = document.getElementById(`status-${videoId}`);
+                const markWatchedButton = document.querySelector(`[data-video-id="${videoId}"] .mark-watched-btn`);
+                
                 if (statusElement) {
                     statusElement.style.display = "block";
+                }
+                if (markWatchedButton) {
+                    markWatchedButton.style.display = "none";
                 }
             }).catch(error => {
                 console.error("Error updating watched videos:", error);
