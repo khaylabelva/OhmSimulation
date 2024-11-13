@@ -23,20 +23,38 @@ const firestore = firebase.firestore();
 document.addEventListener("DOMContentLoaded", () => {
     auth.onAuthStateChanged(user => {
         if (user) {
-            document.getElementById("profileName").textContent = user.displayName || "Guest";
+            const profileName = document.getElementById("profileName");
+            profileName.textContent = user.displayName || "Guest";
 
-            firestore.collection("users").doc(user.uid).get().then(doc => {
-                if (doc.exists) {
-                    const userData = doc.data();
-                    const profilePic = userData.profilePicture || "profile-pic.png";
-                    document.getElementById("profile-picture").src = profilePic;
-                } else {
+            firestore.collection("users").doc(user.uid).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        const profilePic = userData.profilePicture || "profile-pic.png";
+                        document.getElementById("profile-picture").src = profilePic;
+                    } else {
+                        document.getElementById("profile-picture").src = "profile-pic.png";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching user profile:", error);
                     document.getElementById("profile-picture").src = "profile-pic.png";
-                }
-            }).catch(error => {
-                console.error("Error fetching user profile:", error);
-                document.getElementById("profile-picture").src = "profile-pic.png";
-            });
+                });
+
+            firestore.collection("users").doc(user.uid).collection("simulationHistory").doc("practiceQuestions")
+                .get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        currentQuestion = data.currentQuestion || 0;
+                        document.getElementById('progress').style.width = data.progress || '0%';
+                    }
+                    loadQuestion(currentQuestion);
+                })
+                .catch(error => {
+                    console.error("Error fetching state:", error);
+                    loadQuestion(currentQuestion);
+                });
         } else {
             window.location.href = "login.html";
         }
@@ -156,9 +174,27 @@ function loadQuestion(index) {
     });
 }
 
+function saveStateToFirestore() {
+    const user = auth.currentUser;
+    if (user) {
+        firestore.collection("users").doc(user.uid).collection("simulationHistory").doc("practiceQuestions")
+            .set({
+                currentQuestion,
+                progress: document.getElementById('progress').style.width
+            }, { merge: true })
+            .then(() => {
+                console.log("State saved successfully.");
+            })
+            .catch((error) => {
+                console.error("Error saving state:", error);
+            });
+    }
+}
+
 document.getElementById('next-button').addEventListener('click', function nextQuestionHandler() {
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
+        saveStateToFirestore();
         loadQuestion(currentQuestion);
 
         if (currentQuestion === questions.length - 1) {

@@ -1202,7 +1202,7 @@ label {
     margin-right: 10px;
 }
 
-.progress-bar {
+.progress-bar-question {
     flex: 1;
     height: 10px;
     background-color: #EAEAEA;
