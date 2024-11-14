@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohm Simulation Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <div class="container">
+        <div class="sidebar">
+            <div class="profile">
+                <a href="profile.html" class="profile-link">
+                    <img id="profile-picture" src="profile-pic.png" alt="Profile Picture" class="profile-image">
+                    <div class="profile-info">
+                        <span class="profile-name" id="profileName">Loading...</span>
+                        <span class="profile-user">Profile User</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active"><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="simulation.html">Simulation</a></li>
+                    <li><a href="videos.html">Videos</a></li>
+                    <li><a href="practice_question.html">Practice Question</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="index.html" class="logout-link">
+                    <img src="logout.png" alt="Logout Icon" class="logout-icon">
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        
+        <main class="content">
+            <section class="welcome-section">
+                <div class="text-content">
+                    <h1>Welcome to Ohm’s Law Simulation</h1>
+                    <p>Selamat datang di Ohm Simulation, platform interaktif untuk belajar dan memahami hukum Ohm serta konsep dasar kelistrikan lainnya. Di sini, kamu dapat:</p>
+                    <ul>
+                        <li>Belajar Konsep Hukum Ohm: Pahami hubungan antara tegangan (V), arus (I), dan hambatan (R).</li>
+                        <li>Simulasi Interaktif: Uji pemahamanmu dengan mencoba berbagai skenario dan melihat hasil perhitungannya langsung.</li>
+                        <li>Latihan Soal: Asah kemampuanmu dengan berbagai soal latihan yang dirancang untuk memperkuat konsep dasar kelistrikan.</li>
+                    </ul>
+                </div>
+                <img src="image1.png" alt="Simulation Illustration">
+            </section>
+
+            <section class="features-section">
+                <h2>Fitur Kami</h2>
+                <div class="features">
+                    <a href="simulation.html">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <img src="image2.png" alt="Ohm Simulation">
+                            </div>
+                            <div class="feature-text">
+                                <h3>Ohm Simulation</h3>
+                                <p>Merupakan fitur simulasi perhitungan yang bisa digunakan oleh user.</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="videos.html">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <img src="image3.png" alt="Videos">
+                            </div>
+                            <div class="feature-text">
+                                <h3>Videos</h3>
+                                <p>Merupakan fitur berisi video pembelajaran lengkap dan interaktif.</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practice_question.html">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <img src="image4.png" alt="Practice Question">
+                            </div>
+                            <div class="feature-text">
+                                <h3>Practice Question</h3>
+                                <p>Berisi latihan pertanyaan berkaitan dengan Hukum Ohm.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
+            authDomain: "ohmsimulation.firebaseapp.com",
+            projectId: "ohmsimulation",
+            storageBucket: "ohmsimulation.appspot.com",
+            messagingSenderId: "62744511537",
+            appId: "1:62744511537:web:337a3b3268fb90e9918110",
+            measurementId: "G-G816LW6GVL"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const firestore = firebase.firestore(); 
+
+        document.addEventListener("DOMContentLoaded", () => {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    document.getElementById("profileName").textContent = user.displayName || "Guest";
+
+                    firestore.collection("users").doc(user.uid).get().then(doc => {
+                        if (doc.exists && doc.data().profilePicture) {
+                            document.getElementById("profile-picture").src = doc.data().profilePicture;
+                        } else {
+                            document.getElementById("profile-picture").src = "profile-pic.png";
+                        }
+                    }).catch(error => {
+                        console.error("Error fetching profile picture:", error);
+                        document.getElementById("profile-picture").src = "profile-pic.png";
+                    });
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+        });
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
