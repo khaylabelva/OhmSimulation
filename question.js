@@ -260,5 +260,40 @@ function finishQuiz() {
     }
 }
 
+document.getElementById('retake-button').addEventListener('click', retakeQuiz);
+document.getElementById('score-button').addEventListener('click', viewScore);
+
+function retakeQuiz() {
+    currentQuestion = 0;
+    selectedAnswers = {};
+    document.getElementById('progress').style.width = '0%';
+
+    saveStateToFirestore();
+
+    document.getElementById('finish-page').style.display = 'none';
+    document.querySelector('.question-container').style.display = 'block';
+
+    loadQuestion(currentQuestion);
+}
+
+function viewScore() {
+    let score = 0;
+    questions.forEach((question, index) => {
+        if (selectedAnswers[index] === question.correctAnswer) {
+            score += 1;
+        }
+    });
+
+    const scoreMessage = `Your score: ${score} out of ${questions.length}`;
+    const finishPage = document.getElementById('finish-page');
+    const scoreDisplay = document.createElement('p');
+    scoreDisplay.classList.add('score-display');
+    scoreDisplay.textContent = scoreMessage;
+
+    if (!finishPage.querySelector('.score-display')) {
+        finishPage.appendChild(scoreDisplay);
+    }
+}
+
 document.getElementById('progress').style.width = '0%';
 loadQuestion(currentQuestion);
