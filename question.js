@@ -50,8 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         currentQuestion = data.currentQuestion || 0;
                         selectedAnswers = data.selectedAnswers || {};
                         document.getElementById('progress').style.width = data.progress || '0%';
+                        if (currentQuestion === 4 && typeof selectedAnswers[currentQuestion+1] !== "undefined" ) {
+                            loadQuestion(5);
+                        } else {
+                            loadQuestion(currentQuestion);
+                        }
+                        
                     }
-                    loadQuestion(currentQuestion);
                 })
                 .catch(error => {
                     console.error("Error fetching state:", error);
@@ -141,7 +146,7 @@ function loadQuestion(index) {
     const progressBar = document.getElementById('progress');
     const nextButton = document.getElementById('next-button');
 
-    if (index >= questions.length) {
+    if (index === 4 && typeof selectedAnswers[index+1] !== "undefined" ) {
         finishQuiz();
         return;
     }
@@ -243,6 +248,7 @@ function nextQuestionHandler() {
 }
 
 function finishQuiz() {
+    selectedAnswers[currentQuestion+1] = 0
     saveStateToFirestore();
     const questionContainer = document.querySelector('.question-container');
     if (questionContainer) {
