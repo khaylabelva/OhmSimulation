@@ -21,61 +21,47 @@ const auth = firebase.auth();
 const firestore = firebase.firestore(); 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const quizFinished = localStorage.getItem("quizFinished");
-    if (quizFinished === "true") {
-        const questionContainer = document.querySelector('.question-container');
-        if (questionContainer) {
-            questionContainer.style.display = 'none';
-        }
-        const finishPage = document.getElementById('finish-page');
-        if (finishPage) {
-            finishPage.style.display = 'block';
-        }
-    } else {
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                const profileName = document.getElementById("profileName");
-                profileName.textContent = user.displayName || "Guest";
-                firestore.collection("users").doc(user.uid).get()
-                    .then(doc => {
-                        if (doc.exists) {
-                            const userData = doc.data();
-                            const profilePic = userData.profilePicture || "profile-pic.png";
-                            document.getElementById("profile-picture").src = profilePic;
-                        } else {
-                            document.getElementById("profile-picture").src = "profile-pic.png";
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching user profile:", error);
-                        document.getElementById("profile-picture").src = "profile-pic.png";
-                    });
-                firestore.collection("users").doc(user.uid).collection("practiceQuestions")
-                    .doc("progress")
-                    .get()
-                    .then(doc => {
-                        if (doc.exists) {
-                            const data = doc.data();
-                            currentQuestion = data.currentQuestion || 0;
-                            selectedAnswers = data.selectedAnswers || {};
-                            document.getElementById('progress').style.width = data.progress || '0%';
-                        }
-                        loadQuestion(currentQuestion);
-                    })
-                    .catch(error => {
-                        console.error("Error fetching state:", error);
-                        loadQuestion(currentQuestion);
-                    });
-            } else {
-                window.location.href = "login.html";
-            }
-        });
-    }
-});
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            const profileName = document.getElementById("profileName");
+            profileName.textContent = user.displayName || "Guest";
 
-function resetQuizStatus() {
-    localStorage.removeItem("quizFinished");
-}
+            firestore.collection("users").doc(user.uid).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        const profilePic = userData.profilePicture || "profile-pic.png";
+                        document.getElementById("profile-picture").src = profilePic;
+                    } else {
+                        document.getElementById("profile-picture").src = "profile-pic.png";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching user profile:", error);
+                    document.getElementById("profile-picture").src = "profile-pic.png";
+                });
+
+            firestore.collection("users").doc(user.uid).collection("practiceQuestions")
+                .doc("progress")
+                .get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        currentQuestion = data.currentQuestion || 0;
+                        selectedAnswers = data.selectedAnswers || {};
+                        document.getElementById('progress').style.width = data.progress || '0%';
+                    }
+                    loadQuestion(currentQuestion);
+                })
+                .catch(error => {
+                    console.error("Error fetching state:", error);
+                    loadQuestion(currentQuestion);
+                });
+        } else {
+            window.location.href = "login.html";
+        }
+    });
+});
 
 const questions = [
     {
@@ -258,7 +244,6 @@ function nextQuestionHandler() {
 
 function finishQuiz() {
     saveStateToFirestore();
-    localStorage.setItem("quizFinished", "true");
     const questionContainer = document.querySelector('.question-container');
     if (questionContainer) {
         questionContainer.style.display = 'none';
