@@ -41,12 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("profile-picture").src = "profile-pic.png";
                 });
 
-            firestore.collection("users").doc(user.uid).collection("simulationHistory").doc("practiceQuestions")
+            firestore.collection("users").doc(user.uid).collection("practiceQuestions")
+                .doc("progress")
                 .get()
                 .then(doc => {
                     if (doc.exists) {
                         const data = doc.data();
                         currentQuestion = data.currentQuestion || 0;
+                        selectedAnswers = data.selectedAnswers || {};
                         document.getElementById('progress').style.width = data.progress || '0%';
                     }
                     loadQuestion(currentQuestion);
@@ -70,7 +72,7 @@ const questions = [
             "Daya disipasi berkurang menjadi sepertiga.",
             "Daya disipasi berkurang menjadi sepersembilan."
         ],
-        correctAnswer: 3 // Jawaban benar nya "Daya disipasi berkurang menjadi sepersembilan."
+        correctAnswer: 3
     },
     {
         text: "Dua resistor, R1 = 4 Ohm dan R2 = 12 Ohm, disusun dalam seri dan dihubungkan ke baterai 24 Volt. Jika R1 mengalami kenaikan suhu yang membuat nilai resistansinya meningkat menjadi 6 Ohm, berapakah besar arus yang mengalir setelah perubahan resistansi?",
@@ -80,7 +82,7 @@ const questions = [
             "3 A",
             "4 A"
         ],
-        correctAnswer: 0 // Jawaban benar nya "1.5 A"
+        correctAnswer: 0
     },
     {
         text: "Dalam rangkaian yang terdiri dari sebuah resistor tetap dan sebuah resistor variabel (potensiometer), tegangan pada resistor tetap diukur 5 Volt ketika nilai potensiometer 10 Ohm. Jika potensiometer dinaikkan menjadi 20 Ohm dan sumber tegangan tetap 15 Volt, berapakah besar tegangan pada resistor tetap?",
@@ -90,7 +92,7 @@ const questions = [
             "Berkurang menjadi 3.75 Volt",
             "Berkurang menjadi 2.5 Volt"
         ],
-        correctAnswer: 2 // Jawaban benar nya "Berkurang menjadi 3.75 Volt"
+        correctAnswer: 2
     },
     {
         text: "Sebuah kabel penghantar panjang memiliki hambatan yang bergantung pada suhunya. Pada suhu kamar (25°C), hambatan kawat adalah 10 Ohm. Jika suhu kawat dinaikkan menjadi 100°C dengan koefisien suhu resistansi 0.004/°C, berapakah hambatan baru kawat tersebut?",
@@ -100,7 +102,7 @@ const questions = [
             "14 Ohm",
             "16 Ohm"
         ],
-        correctAnswer: 1 // Jawaban benar nya "12 Ohm"
+        correctAnswer: 1
     },
     {
         text: "Sebuah rangkaian terdiri dari tiga resistor dengan nilai R1 = 10 Ohm, R2 = 5 Ohm, dan R3 = 20 Ohm, disusun dalam konfigurasi campuran (seri dan paralel) dengan sumber tegangan 40 Volt. Jika R1 dan R2 dalam paralel dan gabungannya seri dengan R3, berapakah arus total yang mengalir melalui rangkaian?",
@@ -110,13 +112,27 @@ const questions = [
             "4 A",
             "0.5 A"
         ],
-        correctAnswer: 0 // Jawaban benar nya "1 A"
+        correctAnswer: 0
     }
 ];
 
 let currentQuestion = 0;
 let progressIncrement = 100 / questions.length;
 let isAnswered = false;
+let selectedAnswers = {};
+
+function updateNextButton() {
+    const nextButton = document.getElementById('next-button');
+    if (currentQuestion === questions.length - 1) {
+        nextButton.textContent = 'Finish';
+        nextButton.removeEventListener('click', nextQuestionHandler);
+        nextButton.addEventListener('click', finishQuiz);
+    } else {
+        nextButton.textContent = 'Next';
+        nextButton.removeEventListener('click', finishQuiz);
+        nextButton.addEventListener('click', nextQuestionHandler);
+    }
+}
 
 function loadQuestion(index) {
     const questionText = document.getElementById('question-text');
@@ -125,20 +141,20 @@ function loadQuestion(index) {
     const progressBar = document.getElementById('progress');
     const nextButton = document.getElementById('next-button');
 
-    nextButton.style.display = 'none'; // Sembunyikan tombol di awal
-
-    // Jika sudah selesai, langsung tampilkan halaman "Finish"
     if (index >= questions.length) {
         finishQuiz();
         return;
     }
+
+    nextButton.style.display = 'none';
 
     questionText.innerHTML = `<p>${questions[index].text}</p>`;
     answersContainer.innerHTML = '';
 
     questions[index].answers.forEach((answer, i) => {
         const label = document.createElement('label');
-        label.innerHTML = `<input type="radio" name="answer" value="${i}"> ${answer}`;
+        const isChecked = selectedAnswers[index] === i ? 'checked' : '';
+        label.innerHTML = `<input type="radio" name="answer" value="${i}" ${isChecked}> ${answer}`;
         answersContainer.appendChild(label);
     });
 
@@ -146,39 +162,63 @@ function loadQuestion(index) {
     isAnswered = false;
 
     const labels = document.querySelectorAll('.answers label');
-    labels.forEach((label, i) => {
-        label.addEventListener('click', function () {
-            if (!isAnswered) {
-                isAnswered = true;
+    const savedAnswer = selectedAnswers[index];
+    const correctAnswerIndex = questions[index].correctAnswer;
 
-                labels.forEach(lbl => {
-                    lbl.style.pointerEvents = 'none';
-                });
+    if (savedAnswer !== undefined) {
+        labels.forEach(lbl => lbl.style.pointerEvents = 'none');
+        labels[correctAnswerIndex].style.backgroundColor = '#e0ffe0';
+        labels[correctAnswerIndex].style.borderColor = 'green';
 
-                const correctAnswerIndex = questions[index].correctAnswer;
-                if (i === correctAnswerIndex) {
-                    this.style.backgroundColor = '#e0ffe0';
-                    this.style.borderColor = 'green';
-                } else {
-                    this.style.backgroundColor = '#ffe0e0';
-                    this.style.borderColor = 'red';
-                    labels[correctAnswerIndex].style.backgroundColor = '#e0ffe0';
-                    labels[correctAnswerIndex].style.borderColor = 'green';
+        if (savedAnswer !== correctAnswerIndex) {
+            labels[savedAnswer].style.backgroundColor = '#ffe0e0';
+            labels[savedAnswer].style.borderColor = 'red';
+        } else {
+            labels[savedAnswer].style.backgroundColor = '#e0ffe0';
+            labels[savedAnswer].style.borderColor = 'green';
+        }
+
+        nextButton.style.display = 'block';
+    } else {
+        labels.forEach((label, i) => {
+            label.addEventListener('click', function () {
+                if (!isAnswered) {
+                    isAnswered = true;
+
+                    labels.forEach(lbl => lbl.style.pointerEvents = 'none');
+
+                    if (i === correctAnswerIndex) {
+                        this.style.backgroundColor = '#e0ffe0';
+                        this.style.borderColor = 'green';
+                    } else {
+                        this.style.backgroundColor = '#ffe0e0';
+                        this.style.borderColor = 'red';
+                        labels[correctAnswerIndex].style.backgroundColor = '#e0ffe0';
+                        labels[correctAnswerIndex].style.borderColor = 'green';
+                    }
+
+                    selectedAnswers[index] = i;
+                    progressBar.style.width = `${(currentQuestion + 1) * progressIncrement}%`;
+                    saveStateToFirestore();
+
+                    nextButton.style.display = 'block';
+
+                    updateNextButton();
                 }
-
-                progressBar.style.width = `${(currentQuestion + 1) * progressIncrement}%`;
-                nextButton.style.display = 'block';
-            }
+            });
         });
-    });
+    }
+    updateNextButton();
 }
 
 function saveStateToFirestore() {
     const user = auth.currentUser;
     if (user) {
-        firestore.collection("users").doc(user.uid).collection("simulationHistory").doc("practiceQuestions")
+        firestore.collection("users").doc(user.uid).collection("practiceQuestions")
+            .doc("progress")
             .set({
                 currentQuestion,
+                selectedAnswers,
                 progress: document.getElementById('progress').style.width
             }, { merge: true })
             .then(() => {
@@ -190,32 +230,28 @@ function saveStateToFirestore() {
     }
 }
 
-document.getElementById('next-button').addEventListener('click', function nextQuestionHandler() {
-    if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
-        saveStateToFirestore(); // Simpan state setiap kali soal berpindah
-        loadQuestion(currentQuestion);
+document.getElementById('next-button').addEventListener('click', nextQuestionHandler());
 
-        if (currentQuestion === questions.length - 1) {
-            const nextButton = document.getElementById('next-button');
-            nextButton.textContent = 'Finish';
-            nextButton.removeEventListener('click', nextQuestionHandler);
-            nextButton.addEventListener('click', finishQuiz);
+function nextQuestionHandler() {
+    if (currentQuestion < questions.length - 1) {
+        if (selectedAnswers[currentQuestion] !== undefined) {
+            currentQuestion++;
+            saveStateToFirestore();
+            loadQuestion(currentQuestion);
         }
     }
-});
+}
 
 function finishQuiz() {
-    // Simpan state terakhir (opsional)
     saveStateToFirestore();
-
-    // Sembunyikan kontainer soal
     const questionContainer = document.querySelector('.question-container');
-    questionContainer.style.display = 'none';
-
-    // Tampilkan halaman selesai
+    if (questionContainer) {
+        questionContainer.style.display = 'none';
+    }
     const finishPage = document.getElementById('finish-page');
-    finishPage.style.display = 'block';
+    if (finishPage) {
+        finishPage.style.display = 'block';
+    }
 }
 
 document.getElementById('progress').style.width = '0%';
