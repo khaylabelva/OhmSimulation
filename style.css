@@ -1307,10 +1307,16 @@ label {
     background-color: #b68ddb;
 }
 
+/* Finish Page Centering */
 .finish-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 50px;
-    margin-top: 50px;
+    height: 100vh; /* Full viewport height */
+    box-sizing: border-box;
 }
 
 .finish-page img {
@@ -1327,6 +1333,96 @@ label {
 .finish-page p {
     font-size: 18px;
     color: #4C2670;
+}
+
+/* Button Container Styling */
+.button-container2 {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* General Button Styling */
+.button-container2 button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #ffffff;
+}
+
+/* Retake Button Styling */
+#retake-button {
+    background-color: #FF5C5C;
+    box-shadow: 0px 4px 10px rgba(255, 92, 92, 0.4);
+}
+
+#retake-button:hover {
+    background-color: #FF4040;
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 20px rgba(255, 64, 64, 0.5);
+}
+
+#retake-button:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 5px rgba(255, 64, 64, 0.3);
+}
+
+/* Score Button Styling */
+#score-button {
+    background-color: #4CAF50;
+    box-shadow: 0px 4px 10px rgba(76, 175, 80, 0.4);
+}
+
+#score-button:hover {
+    background-color: #43A047;
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 20px rgba(67, 160, 71, 0.5);
+}
+
+#score-button:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 5px rgba(67, 160, 71, 0.3);
+}
+
+/* Score Display Styling */
+.score-display {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333333;
+    background-color: #f0f8ff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+
+/* Score Display Hover Effect */
+.score-display:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Page Profile */
