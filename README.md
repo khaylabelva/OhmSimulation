@@ -16,6 +16,17 @@
 - **Mini Quiz**  
   Short quizzes designed to test users' understanding with high-order thinking questions (HOTS).
 
+## Tech Stack
+
+### Frontend:
+- HTML  
+- CSS  
+- JavaScript  
+
+### Backend/Cloud Services:
+- Firebase Authentication  
+- Firestore Database
+
 ## Installation
 
 1. Clone this repository:  
