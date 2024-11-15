@@ -35,6 +35,8 @@ h1 {
     color: #4c2670;
     margin-bottom: 15px;
     font-weight: 700;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
 }
 
 .gradient-text {
@@ -49,6 +51,9 @@ h1 {
     line-height: 1.6;
     color: #4c2670;
     margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
 }
 
 .btn.signup-btn {
@@ -63,6 +68,9 @@ h1 {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    animation: scaleUp 0.8s ease forwards;
+    animation-delay: 1s;
 }
 
 .btn.signup-btn::before {
@@ -106,6 +114,9 @@ h1 {
     text-decoration: none;
     transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
     position: relative;
+    opacity: 0;
+    animation: scaleUp 0.8s ease forwards;
+    animation-delay: 1.2s;
 }
 
 .btn.login-btn:hover {
@@ -166,4 +177,14 @@ h1 {
 .footer p {
     margin: 0;
     font-family: 'Cormorant', serif;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleUp {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
