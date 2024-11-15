@@ -268,6 +268,12 @@ function retakeQuiz() {
     selectedAnswers = {};
     document.getElementById('progress').style.width = '0%';
 
+    const finishPage = document.getElementById('finish-page');
+    const existingScoreDisplay = finishPage.querySelector('.score-display');
+    if (existingScoreDisplay) {
+        existingScoreDisplay.remove();
+    }
+
     saveStateToFirestore();
 
     document.getElementById('finish-page').style.display = 'none';
@@ -277,20 +283,24 @@ function retakeQuiz() {
 }
 
 function viewScore() {
-    let score = 0;
-    questions.forEach((question, index) => {
-        if (selectedAnswers[index] === question.correctAnswer) {
-            score += 1;
-        }
-    });
-
-    const scoreMessage = `Your score: ${score} out of ${questions.length}`;
     const finishPage = document.getElementById('finish-page');
-    const scoreDisplay = document.createElement('p');
-    scoreDisplay.classList.add('score-display');
-    scoreDisplay.textContent = scoreMessage;
+    const existingScoreDisplay = finishPage.querySelector('.score-display');
+    
+    if (existingScoreDisplay) {
+        existingScoreDisplay.remove();
+    } else {
+        let score = 0;
+        questions.forEach((question, index) => {
+            if (selectedAnswers[index] === question.correctAnswer) {
+                score += 1;
+            }
+        });
 
-    if (!finishPage.querySelector('.score-display')) {
+        const scoreMessage = `Your score: ${score} out of ${questions.length}`;
+        const scoreDisplay = document.createElement('p');
+        scoreDisplay.classList.add('score-display');
+        scoreDisplay.textContent = scoreMessage;
+
         finishPage.appendChild(scoreDisplay);
     }
 }
