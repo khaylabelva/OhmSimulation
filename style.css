@@ -240,7 +240,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     left: 0;
     top: 0;
@@ -382,7 +382,7 @@ body {
         top: 0;
         left: -250px;
         width: 250px;
-        height: 100vh;
+        height: 100%;
         background-color: #4C2670;
         z-index: 100;
         transition: left 0.3s ease;
@@ -843,7 +843,7 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .action-container {
@@ -851,8 +851,8 @@ label {
 }
 
 .action-icon {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -864,7 +864,7 @@ label {
 .tooltip {
     position: absolute;
     top: 10%;
-    right: 60px;
+    right: 70px;
     transform: translateY(-50%);
     background-color: #c2b0e4;
     color: white;
@@ -908,7 +908,7 @@ label {
     background-color: #f3ecfa;
     width: 80%;
     max-width: 800px;
-    max-height: 80vh;
+    max-height: 80%;
     padding: 20px 20px 30px 30px;
     border-radius: 8px;
     overflow-y: auto;
@@ -1307,7 +1307,6 @@ label {
     background-color: #b68ddb;
 }
 
-/* Finish Page Centering */
 .finish-page {
     display: flex;
     flex-direction: column;
@@ -1315,7 +1314,7 @@ label {
     justify-content: center;
     text-align: center;
     padding: 50px;
-    height: 100vh; /* Full viewport height */
+    height: 100%;
     box-sizing: border-box;
 }
 
@@ -1327,7 +1326,7 @@ label {
 .finish-page h1 {
     font-size: 32px;
     color: #4C2670;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
 }
 
 .finish-page p {
@@ -1335,85 +1334,77 @@ label {
     color: #4C2670;
 }
 
-/* Button Container Styling */
 .button-container2 {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 25px;
 }
-
-/* General Button Styling */
 .button-container2 button {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 1rem;
-    padding: 12px 24px;
+    padding: 8px 24px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     color: #ffffff;
 }
 
-/* Retake Button Styling */
 #retake-button {
-    background-color: #FF5C5C;
-    box-shadow: 0px 4px 10px rgba(255, 92, 92, 0.4);
+    background-color: #601f9e;
+    box-shadow: 0px 4px 10px rgba(138, 43, 226, 0.4);
 }
 
 #retake-button:hover {
-    background-color: #FF4040;
+    background-color: #7829c2;
     transform: translateY(-2px);
-    box-shadow: 0px 8px 20px rgba(255, 64, 64, 0.5);
+    box-shadow: 0px 8px 20px rgba(123, 31, 162, 0.5);
 }
 
 #retake-button:active {
     transform: translateY(1px);
-    box-shadow: 0px 2px 5px rgba(255, 64, 64, 0.3);
+    box-shadow: 0px 2px 5px rgba(123, 31, 162, 0.3);
 }
 
-/* Score Button Styling */
 #score-button {
-    background-color: #4CAF50;
-    box-shadow: 0px 4px 10px rgba(76, 175, 80, 0.4);
+    background-color: #8934c7;
+    box-shadow: 0px 4px 10px rgba(106, 13, 173, 0.4);
 }
 
 #score-button:hover {
-    background-color: #43A047;
+    background-color: #9c56ca;
     transform: translateY(-2px);
-    box-shadow: 0px 8px 20px rgba(67, 160, 71, 0.5);
+    box-shadow: 0px 8px 20px rgba(92, 13, 145, 0.5);
 }
 
 #score-button:active {
     transform: translateY(1px);
-    box-shadow: 0px 2px 5px rgba(67, 160, 71, 0.3);
+    box-shadow: 0px 2px 5px rgba(92, 13, 145, 0.3);
 }
 
-/* Score Display Styling */
 .score-display {
     font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #333333;
-    background-color: #f0f8ff;
+    color: #4C2670;
+    background-color: #E6E0F8;
     padding: 20px 30px;
     border-radius: 10px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     opacity: 0;
     animation: fadeIn 0.8s forwards;
 }
 
-/* Score Display Hover Effect */
 .score-display:hover {
     transform: translateY(-5px);
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Fade-in Animation */
 @keyframes fadeIn {
     0% {
         opacity: 0;

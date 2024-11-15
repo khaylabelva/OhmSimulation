@@ -284,6 +284,11 @@ function retakeQuiz() {
 
 function viewScore() {
     const finishPage = document.getElementById('finish-page');
+    
+    if (!finishPage) {
+        console.error("Element with id 'finish-page' not found.");
+        return;
+    }
     const existingScoreDisplay = finishPage.querySelector('.score-display');
     
     if (existingScoreDisplay) {
@@ -297,8 +302,10 @@ function viewScore() {
         });
 
         const scoreMessage = `Your score: ${score} out of ${questions.length}`;
+        
         const scoreDisplay = document.createElement('p');
         scoreDisplay.classList.add('score-display');
+        scoreDisplay.classList.add('show');
         scoreDisplay.textContent = scoreMessage;
 
         finishPage.appendChild(scoreDisplay);
