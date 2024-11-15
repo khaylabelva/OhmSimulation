@@ -19,10 +19,13 @@
 ## Installation
 
 1. Clone this repository:  
-   `git clone https://github.com/khaylabelva/OhmSimulation.git`
+   ```bash
+   git clone https://github.com/khaylabelva/OhmSimulation.git
 
-2. Navigate to the project directory:  
-   `cd OhmSimulation`
+3. Navigate to the project directory:
+   ```bash
+   cd OhmSimulation
 
-3. Open the project in your browser:  
-   `open index.html`
+5. Open the project in your browser:
+   ```bash
+   open index.html
