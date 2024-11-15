@@ -918,12 +918,42 @@ label {
     color: #4C2670;
     position: relative;
     text-align: center;
+    scrollbar-width: thin;
+    scrollbar-color: #ae9ab3 #f3ecfa;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 20px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f3ecfa;
+    border-radius: 20px; 
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #b67db3;
+    border-radius: 20px;
+    border: 2px solid #f3ecfa;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #9b57a1;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.empty-history-message {
+    text-align: center;
+    font-size: 13px;
+    color: #706e72;
+    padding: 5px;
+    margin-top: 15px;
+    font-style: italic;
 }
 
 .close-button {

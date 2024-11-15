@@ -57,62 +57,77 @@ historyButton.addEventListener('click', () => {
                 .then(querySnapshot => {
                     historyList.innerHTML = '';
 
-                    const updateIndexes = () => {
-                        const items = document.querySelectorAll('.history-item');
-                        items.forEach((item, i) => {
-                            item.querySelector('div').textContent = i + 1;
-                        });
+                    const displayEmptyMessage = () => {
+                        const emptyMessage = document.createElement('div');
+                        emptyMessage.className = 'empty-history-message';
+                        emptyMessage.textContent = "You haven't saved any simulations yet.";
+                        historyList.appendChild(emptyMessage);
                     };
 
-                    let index = 1;
-                    querySnapshot.forEach(doc => {
-                        const data = doc.data();
-                        const listItem = document.createElement('div');
-                        listItem.className = 'history-item';
+                    if (querySnapshot.empty) {
+                        displayEmptyMessage();
+                    } else {
+                        const updateIndexes = () => {
+                            const items = document.querySelectorAll('.history-item');
+                            items.forEach((item, i) => {
+                                item.querySelector('div').textContent = i + 1;
+                            });
+                        };
 
-                        listItem.innerHTML = `
-                            <div>${index}</div>
-                            <div>${data.voltage}V</div>
-                            <div>${data.resistance}Ω</div>
-                            <div>${data.current} mA</div>
-                            <div>${data.timestamp.toDate().toLocaleString()}</div>
-                        `;
+                        let index = 1;
+                        querySnapshot.forEach(doc => {
+                            const data = doc.data();
+                            const listItem = document.createElement('div');
+                            listItem.className = 'history-item';
 
-                        const screenshotCell = document.createElement('div');
-                        if (data.screenshot) {
-                            const downloadLink = document.createElement('a');
-                            downloadLink.href = data.screenshot;
-                            downloadLink.download = `screenshot_${data.timestamp.toDate().toLocaleString()}.png`;
-                            downloadLink.textContent = "Download";
-                            screenshotCell.appendChild(downloadLink);
-                        }
-                        listItem.appendChild(screenshotCell);
+                            listItem.innerHTML = `
+                                <div>${index}</div>
+                                <div>${data.voltage}V</div>
+                                <div>${data.resistance}Ω</div>
+                                <div>${data.current} mA</div>
+                                <div>${data.timestamp.toDate().toLocaleString()}</div>
+                            `;
 
-                        const actionsCell = document.createElement('div');
-                        const deleteButton = document.createElement('button');
-                        deleteButton.textContent = "Delete";
-                        deleteButton.classList.add('delete-button');
+                            const screenshotCell = document.createElement('div');
+                            if (data.screenshot) {
+                                const downloadLink = document.createElement('a');
+                                downloadLink.href = data.screenshot;
+                                downloadLink.download = `screenshot_${data.timestamp.toDate().toLocaleString()}.png`;
+                                downloadLink.textContent = "Download";
+                                screenshotCell.appendChild(downloadLink);
+                            }
+                            listItem.appendChild(screenshotCell);
 
-                        deleteButton.addEventListener('click', () => {
-                            firestore.collection("users").doc(user.uid).collection("simulationHistory")
-                                .doc(doc.id)
-                                .delete()
-                                .then(() => {
-                                    alert("History item deleted successfully.");
-                                    listItem.remove();
-                                    updateIndexes();
-                                }).catch(error => {
-                                    console.error("Error deleting history item:", error);
-                                    alert("Failed to delete history. Try again later.");
-                                });
+                            const actionsCell = document.createElement('div');
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = "Delete";
+                            deleteButton.classList.add('delete-button');
+
+                            deleteButton.addEventListener('click', () => {
+                                firestore.collection("users").doc(user.uid).collection("simulationHistory")
+                                    .doc(doc.id)
+                                    .delete()
+                                    .then(() => {
+                                        alert("History item deleted successfully.");
+                                        listItem.remove();
+                                        updateIndexes();
+                                        if (historyList.children.length === 0) {
+                                            displayEmptyMessage();
+                                        }
+                                    }).catch(error => {
+                                        console.error("Error deleting history item:", error);
+                                        alert("Failed to delete history. Try again later.");
+                                    });
+                            });
+
+                            actionsCell.appendChild(deleteButton);
+                            listItem.appendChild(actionsCell);
+
+                            historyList.appendChild(listItem);
+                            index++;
                         });
+                    }
 
-                        actionsCell.appendChild(deleteButton);
-                        listItem.appendChild(actionsCell);
-
-                        historyList.appendChild(listItem);
-                        index++;
-                    });
                     historyModal.style.display = 'flex';
                     document.body.style.overflow = 'hidden';
                 }).catch(error => {
