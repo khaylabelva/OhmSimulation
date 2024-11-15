@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
@@ -17,8 +17,8 @@
     <div class="container">
         <div class="sidebar">
             <div class="profile">
-                <a href="profile.html" class="profile-link">
-                    <img id="profile-picture" src="profile-pic.png" alt="Profile Picture" class="profile-image">
+                <a href="../pages/profile.html" class="profile-link">
+                    <img id="profile-picture" src="../assets/profile-pic.png" alt="Profile Picture" class="profile-image">
                     <div class="profile-info">
                         <span class="profile-name" id="profileName">Loading...</span>
                         <span class="profile-user">Profile User</span>
@@ -35,7 +35,7 @@
             </nav>
             <div class="logout">
                 <a href="index.html" class="logout-link">
-                    <img src="logout.png" alt="Logout Icon" class="logout-icon">
+                    <img src="../assets/logout.png" alt="Logout Icon" class="logout-icon">
                     <span>Logout</span>
                 </a>
             </div>
@@ -52,16 +52,16 @@
                         <li>Latihan Soal: Asah kemampuanmu dengan berbagai soal latihan yang dirancang untuk memperkuat konsep dasar kelistrikan.</li>
                     </ul>
                 </div>
-                <img src="image1.png" alt="Simulation Illustration">
+                <img src="../assets/image1.png" alt="Simulation Illustration">
             </section>
 
             <section class="features-section">
                 <h2>Fitur Kami</h2>
                 <div class="features">
-                    <a href="simulation.html">
+                    <a href="../pages/simulation.html">
                         <div class="feature-item">
                             <div class="feature-icon">
-                                <img src="image2.png" alt="Ohm Simulation">
+                                <img src="../assets/image2.png" alt="Ohm Simulation">
                             </div>
                             <div class="feature-text">
                                 <h3>Ohm Simulation</h3>
@@ -69,10 +69,10 @@
                             </div>
                         </div>
                     </a>
-                    <a href="videos.html">
+                    <a href="../pages/videos.html">
                         <div class="feature-item">
                             <div class="feature-icon">
-                                <img src="image3.png" alt="Videos">
+                                <img src="../assets/image3.png" alt="Videos">
                             </div>
                             <div class="feature-text">
                                 <h3>Videos</h3>
@@ -80,10 +80,10 @@
                             </div>
                         </div>
                     </a>
-                    <a href="practice_question.html">
+                    <a href="../pages/practice_question.html">
                         <div class="feature-item">
                             <div class="feature-icon">
-                                <img src="image4.png" alt="Practice Question">
+                                <img src="../assets/image4.png" alt="Practice Question">
                             </div>
                             <div class="feature-text">
                                 <h3>Practice Question</h3>
@@ -96,6 +96,7 @@
         </main>
     </div>
 
+    <script src="../js/scripts.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyAYVlAQPYeibEjk9XL1jTTwYhOX5MfwttI",
@@ -120,14 +121,14 @@
                         if (doc.exists && doc.data().profilePicture) {
                             document.getElementById("profile-picture").src = doc.data().profilePicture;
                         } else {
-                            document.getElementById("profile-picture").src = "profile-pic.png";
+                            document.getElementById("profile-picture").src = "../assets/profile-pic.png";
                         }
                     }).catch(error => {
                         console.error("Error fetching profile picture:", error);
-                        document.getElementById("profile-picture").src = "profile-pic.png";
+                        document.getElementById("profile-picture").src = "../assets/profile-pic.png";
                     });
                 } else {
-                    window.location.href = "login.html";
+                    window.location.href = "../pages/login.html";
                 }
             });
         });

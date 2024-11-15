@@ -167,17 +167,17 @@ document.addEventListener("DOMContentLoaded", () => {
             firestore.collection("users").doc(user.uid).get().then(doc => {
                 if (doc.exists) {
                     const userData = doc.data();
-                    const profilePic = userData.profilePicture || "profile-pic.png";
+                    const profilePic = userData.profilePicture || "../assets/profile-pic.png";
                     document.getElementById("profile-picture").src = profilePic;
                 } else {
-                    document.getElementById("profile-picture").src = "profile-pic.png";
+                    document.getElementById("profile-picture").src = "../assets/profile-pic.png";
                 }
             }).catch(error => {
                 console.error("Error fetching user profile:", error);
-                document.getElementById("profile-picture").src = "profile-pic.png";
+                document.getElementById("profile-picture").src = "../assets/profile-pic.png";
             });
         } else {
-            window.location.href = "login.html";
+            window.location.href = "../pages/login.html";
         }
     });
 });

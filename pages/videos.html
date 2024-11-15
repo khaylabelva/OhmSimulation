@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
@@ -18,7 +18,7 @@
         <div class="sidebar" id="sidebar">
             <div class="profile">
                 <a href="profile.html" class="profile-link">
-                    <img id="profile-picture" src="profile-pic.png" alt="Profile Picture" class="profile-image">
+                    <img id="profile-picture" src="../assets/profile-pic.png" alt="Profile Picture" class="profile-image">
                     <div class="profile-info">
                         <span class="profile-name" id="profileName">Loading...</span>
                         <span class="profile-user">Profile User</span>
@@ -35,7 +35,7 @@
             </nav>
             <div class="logout">
                 <a href="index.html" class="logout-link">
-                    <img src="logout.png" alt="Logout Icon" class="logout-icon">
+                    <img src="../assets/logout.png" alt="Logout Icon" class="logout-icon">
                     <span>Logout</span>
                 </a>
             </div>
@@ -50,7 +50,7 @@
                     <div class="video-card" data-video-id="video1">
                         <iframe src="https://www.youtube.com/embed/HsLLq6Rm5tU?si=D_jE-CgPRl4fUMEw" frameborder="0" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video1" style="display: none;">
-                            <img src="checklist.png" alt="Watched" class="checklist-icon">
+                            <img src="../assets/checklist.png" alt="Watched" class="checklist-icon">
                         </div>
                                      
                         <div class="video-description">
@@ -62,7 +62,7 @@
                     <div class="video-card" data-video-id="video2">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/_rSHqvjDksg?si=Cyet2s_VZRMrht1l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video2" style="display: none;">
-                            <img src="checklist.png" alt="Watched" class="checklist-icon">
+                            <img src="../assets/checklist.png" alt="Watched" class="checklist-icon">
                         </div>
                          
                         <div class="video-description">
@@ -74,7 +74,7 @@
                     <div class="video-card" data-video-id="video3">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/jiYb-qSWgYY?si=JwxRUgZByS1Ys7LC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video3" style="display: none;">
-                            <img src="checklist.png" alt="Watched" class="checklist-icon">
+                            <img src="../assets/checklist.png" alt="Watched" class="checklist-icon">
                         </div>
                          
                         <div class="video-description">
@@ -86,7 +86,7 @@
                     <div class="video-card" data-video-id="video4">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/6wbtn7XW_jw?si=ZKlbCfF30NSyLK1i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video4" style="display: none;">
-                            <img src="checklist.png" alt="Watched" class="checklist-icon">
+                            <img src="../assets/checklist.png" alt="Watched" class="checklist-icon">
                         </div>
                           
                         <div class="video-description">
@@ -98,7 +98,7 @@
                     <div class="video-card" data-video-id="video5">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/-PiB2Xd3P94?si=jqZGKhugPWSeQL1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video5" style="display: none;">
-                            <img src="checklist.png" alt="Watched" class="checklist-icon">
+                            <img src="../assets/checklist.png" alt="Watched" class="checklist-icon">
                         </div>
                           
                         <div class="video-description">
@@ -110,7 +110,7 @@
                     <div class="video-card" data-video-id="video6">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/iVQ0kIUJ00c?si=5fKKlKqcbHRAb9Vk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="watched-status" id="status-video6" style="display: none;">
-                            <img src="checklist.png" alt="Watched" class="checklist-icon">
+                            <img src="../assets/checklist.png" alt="Watched" class="checklist-icon">
                         </div>
                          
                         <div class="video-description">
@@ -163,15 +163,15 @@
             firestore.collection("users").doc(user.uid).get().then(doc => {
                 if (doc.exists) {
                     const userData = doc.data();
-                    const profilePic = userData.profilePicture || "profile-pic.png";
+                    const profilePic = userData.profilePicture || "../assets/profile-pic.png";
                     document.getElementById("profile-picture").src = profilePic;
                 } else {
-                    document.getElementById("profile-picture").src = "profile-pic.png";
+                    document.getElementById("profile-picture").src = "../assets/profile-pic.png";
                 }
                 loadWatchedVideos(user);
             }).catch(error => {
                 console.error("Error fetching user profile:", error);
-                document.getElementById("profile-picture").src = "profile-pic.png";
+                document.getElementById("profile-picture").src = "../assets/profile-pic.png";
                 loadWatchedVideos(user);
             });
         }

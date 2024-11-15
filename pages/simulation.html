@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
@@ -19,7 +19,7 @@
         <div class="sidebar" id="sidebar">
             <div class="profile">
                 <a href="profile.html" class="profile-link">
-                    <img id="profile-picture" src="profile-pic.png" alt="Profile Picture" class="profile-image">
+                    <img id="profile-picture" src="../assets/profile-pic.png" alt="Profile Picture" class="profile-image">
                     <div class="profile-info">
                         <span class="profile-name" id="profileName">Loading...</span>
                         <span class="profile-user">Profile User</span>
@@ -36,7 +36,7 @@
             </nav>
             <div class="logout">
                 <a href="index.html" class="logout-link">
-                    <img src="logout.png" alt="Logout Icon" class="logout-icon">
+                    <img src="../assets/logout.png" alt="Logout Icon" class="logout-icon">
                     <span>Logout</span>
                 </a>
             </div>
@@ -73,10 +73,10 @@
                 <div class="circuit-box">
                     <div id="batteries" class="batteries"></div>
                     <div class="left-arrow arrow">
-                        <img src="arrow.png" alt="arrow" class="arrow-img">
+                        <img src="../assets/arrow.png" alt="arrow" class="arrow-img">
                     </div>
                     <div class="right-arrow arrow">
-                        <img src="arrow.png" alt="arrow" class="arrow-img">
+                        <img src="../assets/arrow.png" alt="arrow" class="arrow-img">
                     </div>
                     <div class="resistor">
                         <div class="resistor-box">Resistor</div>
@@ -85,11 +85,11 @@
                 </div>
                 <div class="simulation-actions">
                     <div class="action-container">
-                        <img id="write-button" src="write.png" alt="Write" class="action-icon">
+                        <img id="write-button" src="../assets/write.png" alt="Write" class="action-icon">
                         <span class="tooltip">Save Simulation</span>
                     </div>
                     <div class="action-container">
-                        <img id="history-button" src="history.png" alt="History" class="action-icon">
+                        <img id="history-button" src="../assets/history.png" alt="History" class="action-icon">
                         <span class="tooltip">History</span>
                     </div>
                 </div>    
@@ -114,6 +114,6 @@
             </section>
         </main>
     </div>
-    <script src="script.js"></script> 
+    <script src="../js/script.js"></script> 
 </body>
 </html>

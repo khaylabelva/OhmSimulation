@@ -7,17 +7,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="../js/scripts.js"></script>
 </head>
 <body>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <div class="sidebar">
         <div class="profile">
-            <a href="profile.html" class="profile-link">
-                <img id="profile-picture" src="profile-pic.png" alt="Profile Picture" class="profile-image">
+            <a href="../pages/profile.html" class="profile-link">
+                <img id="profile-picture" src="../assets/profile-pic.png" alt="Profile Picture" class="profile-image">
                 <div class="profile-info">
                     <span class="profile-name" id="profileName">Loading...</span>
                     <span class="profile-user">Profile User</span>
@@ -26,15 +27,15 @@
         </div>
         <nav class="nav-menu">
             <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="simulation.html">Simulation</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="practice_question.html">Practice Question</a></li>
+                <li><a href="../pages/dashboard.html">Dashboard</a></li>
+                <li><a href="../pages/simulation.html">Simulation</a></li>
+                <li><a href="../pages/videos.html">Videos</a></li>
+                <li><a href="../pages/practice_question.html">Practice Question</a></li>
             </ul>
         </nav>
         <div class="logout">
             <a href="index.html" class="logout-link">
-                <img src="logout.png" alt="Logout Icon" class="logout-icon">
+                <img src="../assets/logout.png" alt="Logout Icon" class="logout-icon">
                 <span>Logout</span>
             </a>
         </div>
@@ -44,7 +45,7 @@
         <div class="profile-container">
             <div class="profile-picture-section">
                 <span class="profile-picture-label">Profile Picture</span>
-                <img id="profileImageLarge" src="profile-pic.png" alt="Profile Picture" class="profile-image-large">
+                <img id="profileImageLarge" src="../assets/profile-pic.png" alt="Profile Picture" class="profile-image-large">
                 <input type="file" id="profilePicInput" accept="image/*" onchange="uploadProfilePictureBase64()" style="display:none;">
                 <div class="profile-buttons">
                     <button class="change-btn" onclick="document.getElementById('profilePicInput').click()">Change Picture</button>
@@ -108,7 +109,7 @@
                         document.getElementById("profileImageLarge").src = userPic;
                         document.getElementById("profile-picture").src = userPic;
                     } else {
-                        const defaultProfilePic = "profile-pic.png";
+                        const defaultProfilePic = "../assets/profile-pic.png";
                         document.getElementById("profileImageLarge").src = defaultProfilePic;
                         document.getElementById("profile-picture").src = defaultProfilePic;
                     }
@@ -128,7 +129,7 @@
         });
 
         function deleteProfilePicture() {
-            const defaultProfilePic = "profile-pic.png";
+            const defaultProfilePic = "../assets/profile-pic.png";
             document.getElementById("profileImageLarge").src = defaultProfilePic;
             temporaryProfilePicture = defaultProfilePic;
         }
